@@ -1,23 +1,55 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modeloqytetet;
+import java.util.ArrayList;
 
-/**
- *
- * @author d3vcho
- */
 public class PruebaQytetet {
-    Qytetet juego = new Qytetet();
+    private static Qytetet juego = new Qytetet();
+    
+    private static ArrayList<Sorpresa> mayorQueCero(ArrayList<Sorpresa> mazo){
+        ArrayList<Sorpresa> mayorCero = new ArrayList<>();
+
+        for(Sorpresa t: mazo){
+            if(t.getValor() > 0){
+                mayorCero.add(t);
+            }
+        }
+        return mayorCero;
+    }
+    
+    private static ArrayList<Sorpresa> tipoCasilla(ArrayList<Sorpresa> mazo){
+        ArrayList<Sorpresa> tipoCasilla = new ArrayList<>();
+
+        for(Sorpresa t: mazo){
+            if(t.getTipo() == TipoSorpresa.IRACASILLA){
+                tipoCasilla.add(t);
+            }
+        }
+        return tipoCasilla;
+    }
+    
+    private static ArrayList<Sorpresa> tipoSorpresa(ArrayList<Sorpresa> mazo, TipoSorpresa tipo){
+        ArrayList<Sorpresa> tipoSorpresa = new ArrayList<>();
+
+        for(Sorpresa t: mazo){
+            if(t.getTipo() == tipo){
+                tipoSorpresa.add(t);
+            }
+        }
+        return tipoSorpresa;
+    }
     
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         Qytetet.inicializarCartasSorpresa();
-        Qytetet.getMazo().toString();
+        System.out.println(Qytetet.getMazo());
+        
+        System.out.println(mayorQueCero(Qytetet.getMazo()));
+        System.out.println(tipoCasilla(Qytetet.getMazo()));
+        
+        for(TipoSorpresa t: TipoSorpresa.values()){
+            System.out.println(tipoSorpresa(Qytetet.getMazo(), t));
+        }
     }
     
 }
