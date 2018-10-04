@@ -1,7 +1,16 @@
 package modeloqytetet;
 
-public class Dado {
+class Dado {
+    private static final Dado instance = new Dado();
     private int valor;
+    
+    private Dado(){
+        valor = 0;
+    }
+    
+    public static Dado getInstance(){
+        return instance;
+    }
     
     int tirar(){
         
@@ -9,5 +18,10 @@ public class Dado {
     
     public int getValor(){
         return valor;
+    }
+    
+    @Override
+    public String toString(){
+        return "Dado:" + valor;
     }
 }

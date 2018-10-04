@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modeloqytetet;
+import java.util.ArrayList;
 
-/**
- *
- * @author david
- */
 public class TituloPropiedad {
     private String Nombre;
     private int precioCompra;
@@ -20,8 +12,11 @@ public class TituloPropiedad {
     private int numHoteles;
     private int numCasas;
     
+    private Jugador propietario;
+    private ArrayList<TituloPropiedad> propiedades;
     
-    public TituloPropiedad(String nombre,int precioC,int alquilerB,float factorR,int hipotecaB,int precioE)
+    
+    TituloPropiedad(String nombre,int precioC,int alquilerB,float factorR,int hipotecaB,int precioE)
     {
         Nombre=nombre;
         precioCompra=precioC;
@@ -37,10 +32,10 @@ public class TituloPropiedad {
 
     @Override
     public String toString() {
-        return "TituloPropiedad{" + "Nombre=" + Nombre + ", precioCompra=" + precioCompra + ", alquilerBase=" + alquilerBase 
-                + ", factorRevalorizacion=" + factorRevalorizacion + ", hipotecaBase=" + hipotecaBase 
-                + ", precioEdificar=" + precioEdificar + ", hipotecada=" + hipotecada 
-                + ", numHoteles=" + numHoteles + ", numCasas=" + numCasas + '}';
+        return "TituloPropiedad{" + "Nombre:" + Nombre + ", precioCompra:" + precioCompra + ", propietario:" + propietario + ", alquilerBase:" + alquilerBase 
+                + ", factorRevalorizacion:" + factorRevalorizacion + ", hipotecaBase:" + hipotecaBase 
+                + ", precioEdificar:" + precioEdificar + ", hipotecada:" + hipotecada 
+                + ", numHoteles:" + numHoteles + ", numCasas:" + numCasas + '}';
     }
     
     int calcularCosteCancelar(){
@@ -115,8 +110,8 @@ public class TituloPropiedad {
         return numCasas;
     }
     
-    Jugador getPropietario(){ // Hay que hacerla
-        
+    Jugador getPropietario(){
+        return this.propietario;
     }
     
     int hipotecar(){
@@ -131,8 +126,8 @@ public class TituloPropiedad {
         
     }
     
-    void Jugador setPropietario(Jugador propietario){ // Hay que hacerla
-        
+    void setPropietario(Jugador propietario){
+        this.propietario = propietario;
     }
     
     boolean tengoPropietario(){

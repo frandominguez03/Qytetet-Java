@@ -1,11 +1,13 @@
 package modeloqytetet;
 import java.util.ArrayList;
+import java.util.Scanner;
 public class PruebaQytetet {
-    private static Qytetet juego=new Qytetet();
+    private static Qytetet juego = Qytetet.getInstance();
+    private static final Scanner in = new Scanner (System.in);
     
-    private static ArrayList<Sorpresa>MayorCero(ArrayList<Sorpresa>juego)
+    private static ArrayList<Sorpresa> MayorCero(ArrayList<Sorpresa> juego)
     {
-        ArrayList<Sorpresa>mayorq0=new ArrayList();
+        ArrayList<Sorpresa> mayorq0 = new ArrayList();
                 
         for (Sorpresa t: juego) 
         {
@@ -17,13 +19,13 @@ public class PruebaQytetet {
         return mayorq0;
     }
     
-    private static ArrayList<Sorpresa>TipoCasilla(ArrayList<Sorpresa>juego)
+    private static ArrayList<Sorpresa> TipoCasilla(ArrayList<Sorpresa> juego)
     {
-        ArrayList<Sorpresa>tipoCasilla=new ArrayList();
+        ArrayList<Sorpresa> tipoCasilla = new ArrayList();
                
         for (Sorpresa t: juego) 
         {
-          if(t.getSorpresa()==TipoSorpresa.IRACASILLA)
+          if(t.getTipo()==TipoSorpresa.IRACASILLA)
           {
               tipoCasilla.add(t);
           }  
@@ -31,9 +33,9 @@ public class PruebaQytetet {
         return tipoCasilla;
     }
     
-    private static ArrayList<Sorpresa>TipoSorpresa(ArrayList<Sorpresa>juego,TipoSorpresa sorp)
+    private static ArrayList<Sorpresa> TipoSorpresa(ArrayList<Sorpresa> juego, TipoSorpresa sorp)
     {
-        ArrayList<Sorpresa>tipoSorpresa=new ArrayList();
+        ArrayList<Sorpresa> tipoSorpresa = new ArrayList();
                
         for (Sorpresa t: juego) 
         {
@@ -44,20 +46,35 @@ public class PruebaQytetet {
         }
         return tipoSorpresa;
     }
+    
+    private static String getNombreJugadores(){
+        String s = in.nextLine();
+        
+        return s;
+    } 
+    
     public static void main(String[] args) {
-       Qytetet.inicializarCartasSorpresa();
+        // Inicializaciones
+       juego.inicializarCartasSorpresa();
        Tablero tab = new Tablero();
-       System.out.println(Qytetet.getMazo().toString());
-       System.out.println(MayorCero(Qytetet.getMazo()));
-       System.out.println(TipoCasilla(Qytetet.getMazo()));
+       
+       // Imprime el mazo y los métodos de la clase Qytetet
+       System.out.println(juego.getMazo().toString());
+       System.out.println(MayorCero(juego.getMazo()));
+       System.out.println(TipoCasilla(juego.getMazo()));
        
        for(TipoSorpresa t: TipoSorpresa.values()){
-           System.out.println (TipoSorpresa(Qytetet.getMazo(),t));
+           System.out.println (TipoSorpresa(juego.getMazo(),t));
        }
        
+       // Imprime el tablero
        System.out.println(tab);
         
-        
+       // Imprime todos los jugadores
+       System.out.println();
+       
+       // Imprime la única instancia de Qytetet
+       System.out.println(juego);
         
     }
     

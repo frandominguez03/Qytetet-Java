@@ -1,13 +1,25 @@
 package modeloqytetet;
 import java.util.ArrayList;
 public class Qytetet {
+    private static final Qytetet instance = new Qytetet();
     private static ArrayList<Sorpresa> mazo = new ArrayList<>(); 
     private static Tablero tablero;
+    private Sorpresa cartaActual;
+    private Jugador jugadorActual;
+    
     public static int MAX_JUGADORES = 4;
     static int NUM_SORPRESAS = 10;
     public static int NUM_CASILLAS = 20;
     static int PRECIO_LIBERTAD = 200;
     static int SALDO_SALIDA = 1000;
+    
+    private Qytetet(){
+        mazo = new ArrayList<>();
+    }
+    
+    public static Qytetet getInstance(){
+        return instance;
+    }
     
     void actuarSiEnCasillaEdificable(){
         throw new UnsupportedOperationException("Sin implementar");
@@ -37,19 +49,19 @@ public class Qytetet {
         throw new UnsupportedOperationException("Sin implementar");
     }
     
-    public Sorpresa getCartaActual(){ // Hay que hacerlo
-        return mazo;
+    public Sorpresa getCartaActual(){
+        return cartaActual;
     }
     
-    Dado getDado(){ // Hay que hacerlo
-        
+    Dado getDado(){
+        return Dado.getInstance();
     }
     
-    Jugador getJugadorActual(){ // Hay que hacerlo
-        
+    Jugador getJugadorActual(){
+        return jugadorActual;
     }
     
-    public Jugador getJugadores(){ // Hay que hacerlo
+    public ArrayList<Jugador> getJugadores(){ // Hay que hacerlo
         
     }
     
@@ -66,7 +78,7 @@ public class Qytetet {
         
     }
     
-    private void inicializarCartasSorpresa(){
+    void inicializarCartasSorpresa(){
         inicializarTablero();
             mazo.add(new Sorpresa ("Te hemos pillado con las manos en los sobres, lo sentimos, ¡debes ir a la carcel!", 
                     tablero.getCarcel().getNumeroCasilla(), TipoSorpresa.IRACASILLA));
@@ -101,12 +113,22 @@ public class Qytetet {
                     0, TipoSorpresa.SALIRCARCEL));
     }
     
-    public void inicializarJuego(String nombres){ // Hay que hacerlo
-        throw new UnsupportedOperationException("Sin implementar");
+    @Override
+    public String toString(){
+        return "Tablero: {" + tablero + "}, Mazo: {" + mazo + "}, cartaActual: {" + cartaActual +
+                "}, jugadorActual: {" + jugadorActual + "}";
     }
     
-    private void inicializarJugadores(String nombres){ // Hay que hacerlo
-        throw new UnsupportedOperationException("Sin implementar");
+    public void inicializarJuego(ArrayList<String> nombres){
+            inicializarTablero();
+            inicializarCartasSorpresa();
+            inicializarJugadores(nombres);
+    }
+    
+    private void inicializarJugadores(ArrayList<String> nombres){
+        for(int i=0; i<nombres.size(); i++){
+                Jugador jugador = new Jugador(nombres.get(i));
+            }
     }
     
     private void inicializarTablero(){
@@ -153,8 +175,8 @@ public class Qytetet {
         throw new UnsupportedOperationException("Sin implementar");
     }
     
-    private void setCartaActual(){ // Hay que hacerla
-        
+    private void setCartaActual(Sorpresa cartaActual){
+        this.cartaActual = cartaActual;
     }
     
     public void siguienteJugador(){

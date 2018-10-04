@@ -1,8 +1,20 @@
 package modeloqytetet;
+import java.util.ArrayList;
+
 public class Jugador {
     private boolean encarcelado = false;
     private String nombre;
     private int saldo = 7500;
+    
+    private Sorpresa cartaLibertad;
+    private Casilla casillaActual;
+    
+    private Jugador propietario;
+    private ArrayList<TituloPropiedad> propiedades;
+    
+    Jugador(String nombre){
+        this.nombre = nombre;
+    }
     
     boolean cancelarHipoteca(TituloPropiedad titulo){
         
@@ -45,11 +57,11 @@ public class Jugador {
     }
     
     Sorpresa getCartaLibertad(){
-        
+        return this.cartaLibertad;
     }
     
     Casilla getCasillaActual(){
-        return Casilla.getNumeroCasilla();
+        return this.casillaActual;
     }
     
     boolean getEncarcelado(){
@@ -60,8 +72,8 @@ public class Jugador {
         return this.nombre;
     }
     
-    TituloPropiedad getPropiedades(){
-        return TituloPropiedad;
+    ArrayList<TituloPropiedad> getPropiedades(){
+        return this.propiedades;
     }
     
     public int getSaldo(){
@@ -101,15 +113,21 @@ public class Jugador {
     }
     
     void setCartaLibertad(Sorpresa carta){
-        throw new UnsupportedOperationException("Sin implementar");
+        this.cartaLibertad = carta;
     }
     
     void setCasillaActual(Casilla casilla){
-        throw new UnsupportedOperationException("Sin implementar");
+        this.casillaActual = casilla;
     }
     
-    void setEncarcelado(boolean encarcelado = false){
-        this.encarcelado = encarcelado;
+    void setEncarcelado(boolean encarcelado){
+        if(encarcelado){         
+            this.encarcelado = encarcelado;
+        }
+        
+        else{
+            this.encarcelado = false;
+        }
     }
     
     boolean tengoCartaLibertad(){
@@ -122,5 +140,12 @@ public class Jugador {
     
     boolean venderPropiedad(Casilla casilla){
         
+    }
+    
+    @Override
+    public String toString(){
+        return "Jugador{ " + "nombre:" + nombre + "encarcelado:" + encarcelado +
+                "saldo:" + Integer.toString(saldo) + "cartaLibertad:" + cartaLibertad +
+                "casillaActual:" + casillaActual + "propiedades:" + propiedades + "}";
     }
 }

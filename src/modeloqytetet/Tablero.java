@@ -1,18 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modeloqytetet;
 import java.util.ArrayList;
 
-/**
- *
- * @author d3vcho
- */
 public class Tablero {
     private ArrayList<Casilla> casillas;
     private Casilla carcel;
+    private int NUM_CASILLAS;
 
     public Tablero() {
         inicializar();
@@ -32,7 +24,7 @@ public class Tablero {
 
     @Override
     public String toString() {
-        return "Tablero{" + "Casillas= " + casillas + "Carcel= " + carcel + '}';
+        return "Tablero{" + "Casillas:" + casillas + "Carcel:" + carcel + '}';
     }
     
     private void inicializar(){

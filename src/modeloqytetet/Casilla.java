@@ -1,53 +1,44 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modeloqytetet;
 
-/**
- *
- * @author david
- */
 public class Casilla {
     private int numeroCasilla;
-    private int precioCompra;
+    private int coste;
     private TipoCasilla tipo;
     private TituloPropiedad titulo;
     
-    public Casilla(TipoCasilla un_tipo, int numCasilla, TituloPropiedad un_titulo){
+    Casilla(TipoCasilla un_tipo, int numCasilla, TituloPropiedad un_titulo){
         this.numeroCasilla = numCasilla;
         
         if(tipo == TipoCasilla.CALLE){
             setTitulo(un_titulo);
             this.tipo = un_tipo;
-            precioCompra = titulo.getPrecioCompra();
+            coste = titulo.getPrecioCompra();
         }
     }
     
-    public Casilla(TipoCasilla un_tipo, int numCasilla){
+    Casilla(TipoCasilla un_tipo, int numCasilla){
         numeroCasilla = numCasilla;
         
         if(tipo != TipoCasilla.CALLE){
             this.tipo = un_tipo;
-            precioCompra = 0;
+            coste = 0;
         }
     }
 
    int getNumeroCasilla() {
-        return numeroCasilla;
+        return this.numeroCasilla;
     }
 
-    int getPrecioCompra() {
-        return precioCompra;
+    int getCoste() {
+        return this.coste;
     }
 
     TipoCasilla getTipo() {
-        return tipo;
+        return this.tipo;
     }
 
     TituloPropiedad getTitulo() {
-        return titulo;
+        return this.titulo;
     }
 
     private void setTitulo(TituloPropiedad titulo) {
@@ -65,11 +56,11 @@ public class Casilla {
     @Override
     public String toString() {
         if(this.tipo == TipoCasilla.CALLE){
-            return "Casilla{" + "numeroCasilla=" + numeroCasilla + ", precioCompra=" + precioCompra + ", tipo=" + tipo + ", titulo=" + titulo + '}';
+            return "Casilla{" + "numeroCasilla:" + numeroCasilla + ", precioCompra:" + coste + ", tipo:" + tipo + ", titulo:" + titulo + '}';
         }
         
         else{
-            return "Casilla{" + "numeroCasilla=" + numeroCasilla + ", precioCompra=" + precioCompra + ", tipo=" + tipo + '}';
+            return "Casilla{" + "numeroCasilla:" + numeroCasilla + ", precioCompra:" + coste + ", tipo:" + tipo + '}';
         }
     }
     
