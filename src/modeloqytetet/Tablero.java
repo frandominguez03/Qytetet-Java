@@ -17,12 +17,16 @@ public class Tablero {
     public Tablero() {
         inicializar();
     }
+    
+    boolean esCasillaCarcel(int numeroCasilla){
+        
+    }
 
-    public ArrayList getCasillas() {
+    ArrayList getCasillas() {
         return casillas;
     }
 
-    public Casilla getCarcel() {
+    Casilla getCarcel() {
         return carcel;
     }
 
@@ -72,6 +76,14 @@ public class Tablero {
         casillas.add(new Casilla(TipoCasilla.CALLE, 17, titulos.get(contador++)));
         casillas.add(new Casilla(TipoCasilla.CALLE, 18, titulos.get(contador++)));
         casillas.add(new Casilla(TipoCasilla.CALLE, 19, titulos.get(contador++)));
+        
+    }
+    
+    Casilla obtenerCasillaFinal(Casilla casilla, int desplazamiento){
+        
+    }
+    
+    Casilla obtenerCasillaNumero(int numeroCasilla=casillaFinal){
         
     }
     

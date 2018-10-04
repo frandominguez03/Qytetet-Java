@@ -34,26 +34,34 @@ public class Casilla {
         }
     }
 
-    public int getNumeroCasilla() {
+   int getNumeroCasilla() {
         return numeroCasilla;
     }
 
-    public int getPrecioCompra() {
+    int getPrecioCompra() {
         return precioCompra;
     }
 
-    public TipoCasilla getTipo() {
+    TipoCasilla getTipo() {
         return tipo;
     }
 
-    public TituloPropiedad getTitulo() {
+    TituloPropiedad getTitulo() {
         return titulo;
     }
 
     private void setTitulo(TituloPropiedad titulo) {
         this.titulo = titulo;
     }
-
+    
+    boolean soyEdificable(TituloPropiedad titulo){
+        
+    }
+    
+    boolean tengoPropietario(){
+        
+    }
+    
     @Override
     public String toString() {
         if(this.tipo == TipoCasilla.CALLE){

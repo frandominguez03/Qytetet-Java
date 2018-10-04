@@ -42,45 +42,100 @@ public class TituloPropiedad {
                 + ", precioEdificar=" + precioEdificar + ", hipotecada=" + hipotecada 
                 + ", numHoteles=" + numHoteles + ", numCasas=" + numCasas + '}';
     }
+    
+    int calcularCosteCancelar(){
+        
+    }
+    
+    int calcularCosteHipotecar(){
+        
+    }
+    
+    int calcularImporteAlquiler(){
+        
+    }
+    
+    int calcularPrecioVenta(){
+        
+    }
+    
+    int cancelarHipoteca(){
+        
+    }
+    
+    void cobrarAlquiler(int coste){
+        throw new UnsupportedOperationException("Sin implementar");
+    }
+    
+    void edificarCasa(){
+        
+    }
+    
+    void edificarHotel(){
+        
+    }
 
-    public void setHipotecada(boolean hipotecada) {
+    void setHipotecada(boolean hipotecada) {
         this.hipotecada = hipotecada;
     }
 
-    public String getNombre() {
+    String getNombre() {
         return Nombre;
     }
 
-    public boolean isHipotecada() {
+    boolean getHipotecada() {
         return hipotecada;
     }
 
-    public int getPrecioCompra() {
+    int getPrecioCompra() {
         return precioCompra;
     }
 
-    public int getAlquilerBase() {
+    int getAlquilerBase() {
         return alquilerBase;
     }
 
-    public float getFactorRevalorizacion() {
+    float getFactorRevalorizacion() {
         return factorRevalorizacion;
     }
 
-    public int getHipotecaBase() {
+    int getHipotecaBase() {
         return hipotecaBase;
     }
 
-    public int getPrecioEdificar() {
+    int getPrecioEdificar() {
         return precioEdificar;
     }
 
-    public int getNumHoteles() {
+    int getNumHoteles() {
         return numHoteles;
     }
 
-    public int getNumCasas() {
+    int getNumCasas() {
         return numCasas;
     }
     
+    Jugador getPropietario(){ // Hay que hacerla
+        
+    }
+    
+    int hipotecar(){
+        
+    }
+    
+    int pagarAlquiler(){
+        
+    }
+    
+    boolean propietarioEncarcelado(){
+        
+    }
+    
+    void Jugador setPropietario(Jugador propietario){ // Hay que hacerla
+        
+    }
+    
+    boolean tengoPropietario(){
+        
+    }
 }

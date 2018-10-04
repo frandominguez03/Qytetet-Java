@@ -10,15 +10,15 @@ public class Sorpresa {
         Sorpresa=tipo;
     }
     
-    public String getTexto(){
+    String getTexto(){
         return Texto;
     }
     
-    public TipoSorpresa getSorpresa(){
+    TipoSorpresa getTipo(){
         return Sorpresa;
     }
     
-    public int getValor(){
+    int getValor(){
         return Valor;
     }
     
@@ -26,9 +26,5 @@ public class Sorpresa {
     public String toString() {
         return "Sorpresa{" + "texto=" + Texto + ", valor=" + 
         Integer.toString(Valor) + ", tipo=" + Sorpresa + "}";
-     } 
-
-    
-    
-    
+     }
 }

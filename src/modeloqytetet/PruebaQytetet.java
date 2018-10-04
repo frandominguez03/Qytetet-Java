@@ -37,7 +37,7 @@ public class PruebaQytetet {
                
         for (Sorpresa t: juego) 
         {
-          if(t.getSorpresa()==sorp)
+          if(t.getTipo()==sorp)
           {
               tipoSorpresa.add(t);
           }  
