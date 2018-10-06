@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Qytetet {
     private static final Qytetet instance = new Qytetet();
     private static ArrayList<Sorpresa> mazo = new ArrayList<>(); 
+    private static ArrayList<Jugador> jugadores = new ArrayList<>();
     private static Tablero tablero;
     private Sorpresa cartaActual;
     private Jugador jugadorActual;
@@ -34,15 +35,15 @@ public class Qytetet {
     }
     
     public boolean cancelarHipoteca(int numeroCasilla){
-        
+        return false;
     }
     
     public boolean edificarCasa(int numeroCasilla){
-        
+        return false;
     }
     
     public boolean edificarHotel(int numeroCasilla){
-        
+        return false;
     }
     
     private void encarcelarJugador(){
@@ -62,7 +63,7 @@ public class Qytetet {
     }
     
     public ArrayList<Jugador> getJugadores(){ // Hay que hacerlo
-        
+        return jugadores;
     }
     
     
@@ -71,11 +72,11 @@ public class Qytetet {
     }
     
     public int getValorDado(){
-        
+        return 0;
     }
     
     public void hipotecarPropiedad(int numeroCasilla){
-        
+        throw new UnsupportedOperationException("Sin implementar");
     }
     
     void inicializarCartasSorpresa(){
@@ -136,7 +137,7 @@ public class Qytetet {
     }
     
     public boolean intentarSalirCarcel(MetodoSalirCarcel metodo){
-        
+        return false;
     }
     
     public void jugar(){
@@ -148,19 +149,19 @@ public class Qytetet {
     }
     
     public Casilla obtenerCasillaJugadorActual(){
-        
+        return null;
     }
     
     public Casilla obtenerCasillasTablero(){
-        
+        return null;
     }
     
     public int obtenerPropiedadesJugador(){
-        
+        return 0;
     }
     
     public int obtenerPropiedadesJugadorSegunEstadoHipoteca(boolean estadoHipoteca){
-        
+        return 0;
     }
     
     public void obtenerRanking(){
@@ -168,7 +169,7 @@ public class Qytetet {
     }
     
     public int obtenerSaldoJugadorActual(){
-        
+        return 0;
     }
     
     private void salidaJugadores(){
@@ -184,10 +185,10 @@ public class Qytetet {
     }
     
     int tirarDado(){
-        
+        return 0;
     }
     
     public boolean venderPropiedad(int numeroCasilla){
-        
+        return false;
     }
 }

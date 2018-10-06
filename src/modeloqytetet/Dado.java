@@ -13,15 +13,15 @@ class Dado {
     }
     
     int tirar(){
-        
+        return 0;
     }
     
     public int getValor(){
         return valor;
     }
-    
+
     @Override
-    public String toString(){
-        return "Dado:" + valor;
+    public String toString() {
+        return "Dado{" + "valor=" + valor + '}';
     }
 }

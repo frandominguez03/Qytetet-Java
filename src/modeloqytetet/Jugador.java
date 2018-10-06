@@ -17,31 +17,31 @@ public class Jugador {
     }
     
     boolean cancelarHipoteca(TituloPropiedad titulo){
-        
+        return false;
     }
     
     boolean comprarTituloPropiedad(){
-        
+        return false;
     }
     
     int cuantasCasasHotelesTengo(){
-        
+        return 0;
     }
     
     boolean deboPagarAlquiler(){
-        
+        return false;
     }
     
     Sorpresa devolverCartaLibertad(){
-        
+        return null;
     }
     
     boolean edificarCasa(TituloPropiedad titulo){
-        
+        return false;
     }
     
     boolean edificarHotel(TituloPropiedad titulo){
-        
+        return false;
     }
     
     private void eliminarDeMisPropiedades(TituloPropiedad titulo){
@@ -49,11 +49,11 @@ public class Jugador {
     }
     
     private boolean esDeMiPropiedad(TituloPropiedad titulo){
-        
+        return false;
     }
     
     boolean estoyEnCalleLibre(){
-        
+        return false;
     }
     
     Sorpresa getCartaLibertad(){
@@ -81,7 +81,7 @@ public class Jugador {
     }
     
     boolean hipotecarPropiedad(TituloPropiedad titulo){
-        
+        return false;
     }
     
     void irACarcel(Casilla casilla){
@@ -89,15 +89,15 @@ public class Jugador {
     }
     
     int modificarSaldo(int cantidad){
-    
+        return 0;
     }
     
     int obtenerCapital(){
-        
+        return 0;
     }
     
     TituloPropiedad obtenerPropiedades(boolean hipotecada){
-    
+        return null;
     }
     
     void pagarAlquiler(){
@@ -113,7 +113,13 @@ public class Jugador {
     }
     
     void setCartaLibertad(Sorpresa carta){
-        this.cartaLibertad = carta;
+        if(carta.getTipo() != TipoSorpresa.SALIRCARCEL) {
+            this.cartaLibertad = carta;
+        }
+        
+        else {
+            throw new Error("La carta no es de tipo SALIRCARCEL");
+        }
     }
     
     void setCasillaActual(Casilla casilla){
@@ -131,15 +137,15 @@ public class Jugador {
     }
     
     boolean tengoCartaLibertad(){
-        
+        return false;
     }
     
     private boolean tengoSaldo(int cantidad){
-    
+        return false;
     }
     
     boolean venderPropiedad(Casilla casilla){
-        
+        return false;
     }
     
     @Override

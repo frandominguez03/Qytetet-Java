@@ -4,14 +4,14 @@ import java.util.ArrayList;
 public class Tablero {
     private ArrayList<Casilla> casillas;
     private Casilla carcel;
-    private int NUM_CASILLAS;
+    public static int NUM_CASILLAS = 20;
 
     public Tablero() {
         inicializar();
     }
     
     boolean esCasillaCarcel(int numeroCasilla){
-        
+        return false;
     }
 
     ArrayList getCasillas() {
@@ -20,11 +20,6 @@ public class Tablero {
 
     Casilla getCarcel() {
         return carcel;
-    }
-
-    @Override
-    public String toString() {
-        return "Tablero{" + "Casillas:" + casillas + "Carcel:" + carcel + '}';
     }
     
     private void inicializar(){
@@ -72,11 +67,15 @@ public class Tablero {
     }
     
     Casilla obtenerCasillaFinal(Casilla casilla, int desplazamiento){
-        
+        return null;
     }
     
-    Casilla obtenerCasillaNumero(int numeroCasilla=casillaFinal){
-        
+    Casilla obtenerCasillaNumero(int numeroCasilla){
+        return null;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Tablero{" + "casillas=" + casillas + ", carcel=" + carcel + '}';
+    }
 }

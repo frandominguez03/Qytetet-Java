@@ -9,9 +9,9 @@ public class Casilla {
     Casilla(TipoCasilla un_tipo, int numCasilla, TituloPropiedad un_titulo){
         this.numeroCasilla = numCasilla;
         
-        if(tipo == TipoCasilla.CALLE){
-            setTitulo(un_titulo);
+        if(un_tipo == TipoCasilla.CALLE){
             this.tipo = un_tipo;
+            setTitulo(un_titulo);
             coste = titulo.getPrecioCompra();
         }
     }
@@ -19,7 +19,7 @@ public class Casilla {
     Casilla(TipoCasilla un_tipo, int numCasilla){
         numeroCasilla = numCasilla;
         
-        if(tipo != TipoCasilla.CALLE){
+        if(un_tipo != TipoCasilla.CALLE){
             this.tipo = un_tipo;
             coste = 0;
         }
@@ -40,17 +40,21 @@ public class Casilla {
     TituloPropiedad getTitulo() {
         return this.titulo;
     }
+    
+    private void setTipo(TipoCasilla tipo){
+        this.tipo = tipo;
+    }
 
     private void setTitulo(TituloPropiedad titulo) {
         this.titulo = titulo;
     }
     
     boolean soyEdificable(TituloPropiedad titulo){
-        
+        return false;
     }
     
     boolean tengoPropietario(){
-        
+        return false;
     }
     
     @Override

@@ -21,10 +21,9 @@ public class Sorpresa {
     int getValor(){
         return valor;
     }
-    
+
     @Override
     public String toString() {
-        return "Sorpresa{" + "texto:" + texto + ", valor:" + 
-        Integer.toString(valor) + ", tipo:" + tipo + "}";
+        return "Sorpresa{" + "texto=" + texto + ", tipo=" + tipo + ", valor=" + valor + '}';
     }
 }

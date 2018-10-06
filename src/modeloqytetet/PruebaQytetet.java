@@ -47,10 +47,20 @@ public class PruebaQytetet {
         return tipoSorpresa;
     }
     
-    private static String getNombreJugadores(){
-        String s = in.nextLine();
+    private static ArrayList<String> getNombreJugadores(){
+        ArrayList<String> lista = new ArrayList<>();
+        int num_jugadores;
         
-        return s;
+        System.out.println("Introduce el numero de jugadores:");
+        num_jugadores = in.nextInt();
+        
+        for(int i=0; i<num_jugadores; i++){
+            System.out.println("Introduce el nombre del jugador:");
+            String s = in.next();
+            lista.add(s);
+        }
+        
+        return lista;
     } 
     
     public static void main(String[] args) {
@@ -59,6 +69,7 @@ public class PruebaQytetet {
        Tablero tab = new Tablero();
        
        // Imprime el mazo y los métodos de la clase Qytetet
+       System.out.println("Imprimimos el mazo y los métodos de la clase Qytetet");
        System.out.println(juego.getMazo().toString());
        System.out.println(MayorCero(juego.getMazo()));
        System.out.println(TipoCasilla(juego.getMazo()));
@@ -68,12 +79,15 @@ public class PruebaQytetet {
        }
        
        // Imprime el tablero
+       System.out.println("Imprimimos el tablero");
        System.out.println(tab);
         
        // Imprime todos los jugadores
-       System.out.println();
+       System.out.println("Imprimimos los jugadores");
+       System.out.println(getNombreJugadores());
        
        // Imprime la única instancia de Qytetet
+       System.out.println("Imprimimos la instancia Qytetet");
        System.out.println(juego);
         
     }

@@ -29,33 +29,25 @@ public class TituloPropiedad {
         numCasas=0;
                        
     }
-
-    @Override
-    public String toString() {
-        return "TituloPropiedad{" + "Nombre:" + Nombre + ", precioCompra:" + precioCompra + ", propietario:" + propietario + ", alquilerBase:" + alquilerBase 
-                + ", factorRevalorizacion:" + factorRevalorizacion + ", hipotecaBase:" + hipotecaBase 
-                + ", precioEdificar:" + precioEdificar + ", hipotecada:" + hipotecada 
-                + ", numHoteles:" + numHoteles + ", numCasas:" + numCasas + '}';
-    }
     
     int calcularCosteCancelar(){
-        
+        return 0;
     }
     
     int calcularCosteHipotecar(){
-        
+        return 0;
     }
     
     int calcularImporteAlquiler(){
-        
+        return 0;
     }
     
     int calcularPrecioVenta(){
-        
+        return 0;
     }
     
     int cancelarHipoteca(){
-        
+        return 0;
     }
     
     void cobrarAlquiler(int coste){
@@ -63,11 +55,11 @@ public class TituloPropiedad {
     }
     
     void edificarCasa(){
-        
+        throw new UnsupportedOperationException("Sin implementar");
     }
     
     void edificarHotel(){
-        
+        throw new UnsupportedOperationException("Sin implementar");
     }
 
     void setHipotecada(boolean hipotecada) {
@@ -115,15 +107,15 @@ public class TituloPropiedad {
     }
     
     int hipotecar(){
-        
+        return 0;
     }
     
     int pagarAlquiler(){
-        
+        return 0;
     }
     
     boolean propietarioEncarcelado(){
-        
+        return false;
     }
     
     void setPropietario(Jugador propietario){
@@ -131,6 +123,11 @@ public class TituloPropiedad {
     }
     
     boolean tengoPropietario(){
-        
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "TituloPropiedad{" + "Nombre=" + Nombre + ", precioCompra=" + precioCompra + ", alquilerBase=" + alquilerBase + ", factorRevalorizacion=" + factorRevalorizacion + ", hipotecaBase=" + hipotecaBase + ", precioEdificar=" + precioEdificar + ", hipotecada=" + hipotecada + ", numHoteles=" + numHoteles + ", numCasas=" + numCasas + ", propietario=" + propietario + ", propiedades=" + propiedades + '}';
     }
 }
