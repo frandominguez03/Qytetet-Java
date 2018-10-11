@@ -62,7 +62,7 @@ public class Qytetet {
         return jugadorActual;
     }
     
-    public ArrayList<Jugador> getJugadores(){ // Hay que hacerlo
+    public ArrayList<Jugador> getJugadores(){
         return jugadores;
     }
     
@@ -79,7 +79,7 @@ public class Qytetet {
         throw new UnsupportedOperationException("Sin implementar");
     }
     
-    void inicializarCartasSorpresa(){
+    private static void inicializarCartasSorpresa(){
         inicializarTablero();
             mazo.add(new Sorpresa ("Te hemos pillado con las manos en los sobres, lo sentimos, ¡debes ir a la carcel!", 
                     tablero.getCarcel().getNumeroCasilla(), TipoSorpresa.IRACASILLA));
@@ -120,19 +120,19 @@ public class Qytetet {
                 "}, jugadorActual: {" + jugadorActual + "}";
     }
     
-    public void inicializarJuego(ArrayList<String> nombres){
+    public static void inicializarJuego(ArrayList<String> nombres){
             inicializarTablero();
             inicializarCartasSorpresa();
             inicializarJugadores(nombres);
     }
     
-    private void inicializarJugadores(ArrayList<String> nombres){
+    private static void inicializarJugadores(ArrayList<String> nombres){
         for(int i=0; i<nombres.size(); i++){
-                Jugador jugador = new Jugador(nombres.get(i));
+                jugadores.add(new Jugador(nombres.get(i)));
             }
     }
     
-    private void inicializarTablero(){
+    private static void inicializarTablero(){
         tablero = new Tablero();
     }
     

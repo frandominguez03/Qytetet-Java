@@ -150,8 +150,8 @@ public class Jugador {
     
     @Override
     public String toString(){
-        return "Jugador{ " + "nombre:" + nombre + "encarcelado:" + encarcelado +
-                "saldo:" + Integer.toString(saldo) + "cartaLibertad:" + cartaLibertad +
-                "casillaActual:" + casillaActual + "propiedades:" + propiedades + "}";
+        return "Jugador{ " + "nombre:" + nombre + " encarcelado:" + encarcelado +
+                " saldo:" + Integer.toString(saldo) + " cartaLibertad:" + cartaLibertad +
+                " casillaActual:" + casillaActual + " propiedades:" + propiedades + "}";
     }
 }

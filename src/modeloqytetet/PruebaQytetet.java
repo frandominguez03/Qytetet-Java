@@ -1,6 +1,7 @@
 package modeloqytetet;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class PruebaQytetet {
     private static Qytetet juego = Qytetet.getInstance();
     private static final Scanner in = new Scanner (System.in);
@@ -65,7 +66,9 @@ public class PruebaQytetet {
     
     public static void main(String[] args) {
         // Inicializaciones
-       juego.inicializarCartasSorpresa();
+       ArrayList <String> nombres = new ArrayList<>();
+       nombres = getNombreJugadores();
+       Qytetet.inicializarJuego(nombres);
        Tablero tab = new Tablero();
        
        // Imprime el mazo y los métodos de la clase Qytetet
@@ -84,7 +87,7 @@ public class PruebaQytetet {
         
        // Imprime todos los jugadores
        System.out.println("Imprimimos los jugadores");
-       System.out.println(getNombreJugadores());
+       System.out.println(juego.getJugadores());
        
        // Imprime la única instancia de Qytetet
        System.out.println("Imprimimos la instancia Qytetet");
