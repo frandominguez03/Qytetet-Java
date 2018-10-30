@@ -24,6 +24,10 @@ public class Casilla {
             coste = 0;
         }
     }
+    
+    TituloPropiedad asignarPropietario(Jugador jugador){
+        return null;
+    }
 
    int getNumeroCasilla() {
         return this.numeroCasilla;
@@ -49,12 +53,16 @@ public class Casilla {
         this.titulo = titulo;
     }
     
-    boolean soyEdificable(TituloPropiedad titulo){
-        return false;
+    boolean soyEdificable(){
+        return this.tipo == TipoCasilla.CALLE;
     }
     
     boolean tengoPropietario(){
-        return false;
+        return titulo.tengoPropietario();
+    }
+    
+    boolean propietarioEncarcelado(){
+        return titulo.propietarioEncarcelado();
     }
     
     @Override

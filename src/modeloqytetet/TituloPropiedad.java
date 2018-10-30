@@ -38,8 +38,12 @@ public class TituloPropiedad {
         return 0;
     }
     
-    int calcularImporteAlquiler(){
-        return 0;
+    double calcularImporteAlquiler(){
+        double costeAlquiler;
+            
+        costeAlquiler = this.alquilerBase + this.numHoteles*0.5 + this.numCasas*2;
+        
+        return costeAlquiler;
     }
     
     int calcularPrecioVenta(){
@@ -115,7 +119,7 @@ public class TituloPropiedad {
     }
     
     boolean propietarioEncarcelado(){
-        return false;
+        return propietario.getEncarcelado();
     }
     
     void setPropietario(Jugador propietario){
@@ -123,7 +127,7 @@ public class TituloPropiedad {
     }
     
     boolean tengoPropietario(){
-        return false;
+        return propietario != null;
     }
 
     @Override

@@ -11,7 +11,7 @@ public class Tablero {
     }
     
     boolean esCasillaCarcel(int numeroCasilla){
-        return false;
+        return carcel.getNumeroCasilla() == numeroCasilla;
     }
 
     ArrayList getCasillas() {
@@ -67,11 +67,11 @@ public class Tablero {
     }
     
     Casilla obtenerCasillaFinal(Casilla casilla, int desplazamiento){
-        return null;
+        return casillas.get((casilla.getNumeroCasilla()+desplazamiento)%20);
     }
     
     Casilla obtenerCasillaNumero(int numeroCasilla){
-        return null;
+        return casillas.get(numeroCasilla);
     }
 
     @Override
