@@ -72,7 +72,22 @@ public class Jugador implements Comparable<Jugador> {
     }
     
     boolean edificarCasa(TituloPropiedad titulo){
-        Casilla casilla = casillaActual.obtenerCasillaNumero(casillaActual);
+        boolean hayEspacio = titulo.getNumCasas() < 4;
+        boolean tengoSaldo = false;
+        boolean edificada = hayEspacio && tengoSaldo;
+        int costeEdificarCasa = 0;
+        
+        if(hayEspacio){
+            costeEdificarCasa = titulo.getPrecioEdificar();
+            tengoSaldo = tengoSaldo(costeEdificarCasa);
+        }
+        
+        if(hayEspacio && tengoSaldo){
+            titulo.edificarCasa();
+            this.modificarSaldo(-costeEdificarCasa);
+        }
+        
+        return edificada;
     }
     
     boolean edificarHotel(TituloPropiedad titulo){
@@ -80,7 +95,10 @@ public class Jugador implements Comparable<Jugador> {
     }
     
     private void eliminarDeMisPropiedades(TituloPropiedad titulo){
-        throw new UnsupportedOperationException("Sin implementar");
+        this.propiedades.remove(titulo);
+        titulo.setPropietario(null);
+        int precioVenta = titulo.calcularPrecioVenta();
+        this.modificarSaldo(precioVenta);
     }
     
     private boolean esDeMiPropiedad(TituloPropiedad titulo){
@@ -120,8 +138,9 @@ public class Jugador implements Comparable<Jugador> {
         return saldo;
     }
     
-    boolean hipotecarPropiedad(TituloPropiedad titulo){
-        return false;
+    void hipotecarPropiedad(TituloPropiedad titulo){
+        int costeHipoteca = casillaActual.getTitulo().hipotecar();
+        modificarSaldo(costeHipoteca);
     }
     
     void irACarcel(Casilla casilla){
@@ -161,8 +180,8 @@ public class Jugador implements Comparable<Jugador> {
     }
     
     void pagarAlquiler(){
-        int costeAlquiler = casillaActual.getTitulo().calcularImporteAlquiler();
-        this.modificarSaldo(-costeAlquiler);
+        double costeAlquiler = casillaActual.pagarAlquiler();
+        this.modificarSaldo((int) -costeAlquiler);
     }
     
     void pagarImpuesto(){
@@ -205,8 +224,8 @@ public class Jugador implements Comparable<Jugador> {
         return this.saldo>cantidad;
     }
     
-    boolean venderPropiedad(Casilla casilla){
-        return false;
+    void venderPropiedad(Casilla casilla){
+        eliminarDeMisPropiedades(casilla.getTitulo());
     }
     
     @Override

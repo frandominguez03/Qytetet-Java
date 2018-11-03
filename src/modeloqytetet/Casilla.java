@@ -45,6 +45,10 @@ public class Casilla {
         return this.titulo;
     }
     
+    double pagarAlquiler(){
+        return this.titulo.calcularImporteAlquiler();
+    }
+    
     private void setTipo(TipoCasilla tipo){
         this.tipo = tipo;
     }

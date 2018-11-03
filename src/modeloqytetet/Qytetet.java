@@ -74,52 +74,46 @@ public class Qytetet {
             mazo.add(cartaActual);
         }
         
-        if(cartaActual.getTipo() == TipoSorpresa.PAGARCOBRAR){
-            jugadorActual.modificarSaldo(cartaActual.getValor());
-            
-            if(jugadorActual.getSaldo() < 0){
-                setEstadoJuego(EstadoJuego.ALGUNJUGADORENBANCARROTA);
-            }
-        }
-        
-        else{
-            if(cartaActual.getTipo() == TipoSorpresa.IRACASILLA){
+        if(null != cartaActual.getTipo())switch (cartaActual.getTipo()) {
+            case PAGARCOBRAR:
+                jugadorActual.modificarSaldo(cartaActual.getValor());
+                if(jugadorActual.getSaldo() < 0){
+                    setEstadoJuego(EstadoJuego.ALGUNJUGADORENBANCARROTA);
+                }   break;
+            case IRACASILLA:
                 int valor = cartaActual.getValor();
                 boolean casillaCarcel = tablero.esCasillaCarcel(valor);
-            
                 if(casillaCarcel){
                     encarcelarJugador();
-                    }
+                }
                 
                 else{
                     mover(valor);
                 }
-                
-                if(cartaActual.getTipo() == TipoSorpresa.PORCASAHOTEL){
-                    int cantidad = cartaActual.getValor();
-                    int numeroTotal = jugadorActual.cuantasCasasHotelesTengo();
+                break;
+            case PORCASAHOTEL:
+                int cantidad = cartaActual.getValor();
+                int numeroTotal = jugadorActual.cuantasCasasHotelesTengo();
+                jugadorActual.modificarSaldo(numeroTotal*cantidad);
+                if(jugadorActual.getSaldo() < 0){
+                    setEstadoJuego(EstadoJuego.ALGUNJUGADORENBANCARROTA);
+                }
+                break;
+            case PORJUGADOR:
+                for(int i=0; i<MAX_JUGADORES-1; i++){
+                    siguienteJugador();
                     
-                    jugadorActual.modificarSaldo(numeroTotal*cantidad);
+                    jugadorActual.modificarSaldo(cartaActual.getValor());
                     
                     if(jugadorActual.getSaldo() < 0){
                         setEstadoJuego(EstadoJuego.ALGUNJUGADORENBANCARROTA);
                     }
                 }
-                
-                if(cartaActual.getTipo() == TipoSorpresa.PORJUGADOR){
-                    for(int i=0; i<MAX_JUGADORES-1; i++){
-                        siguienteJugador();
-                        
-                        jugadorActual.modificarSaldo(cartaActual.getValor());
-                        
-                        if(jugadorActual.getSaldo() < 0){
-                            setEstadoJuego(EstadoJuego.ALGUNJUGADORENBANCARROTA);
-                        }
-                    }
-                }
-            }
+                break;
+            default:
+                break;
         }
-    }
+            }
     
     public boolean cancelarHipoteca(int numeroCasilla){
         return false;
@@ -152,7 +146,7 @@ public class Qytetet {
             }
         }
         
-        if(edificada = true){
+        if(edificada){
             setEstadoJuego(EstadoJuego.JA_PUEDEGESTIONAR);
         }
         
@@ -206,7 +200,10 @@ public class Qytetet {
     }
     
     public void hipotecarPropiedad(int numeroCasilla){
-        throw new UnsupportedOperationException("Sin implementar");
+        Casilla casilla = tablero.obtenerCasillaNumero(numeroCasilla);
+        TituloPropiedad titulo = casilla.getTitulo();
+        jugadorActual.hipotecarPropiedad(titulo);
+        setEstadoJuego(EstadoJuego.JA_PUEDEGESTIONAR);
     }
     
     private static void inicializarCartasSorpresa(){
@@ -250,10 +247,11 @@ public class Qytetet {
                 "}, jugadorActual: {" + jugadorActual + "}";
     }
     
-    public static void inicializarJuego(ArrayList<String> nombres){
+    public void inicializarJuego(ArrayList<String> nombres){
             inicializarTablero();
             inicializarCartasSorpresa();
             inicializarJugadores(nombres);
+            salidaJugadores();
     }
     
     private static void inicializarJugadores(ArrayList<String> nombres){
@@ -408,7 +406,10 @@ public class Qytetet {
             return dado.tirar();
     }
     
-    public boolean venderPropiedad(int numeroCasilla){
-        return false;
+    public void venderPropiedad(int numeroCasilla){
+        Casilla casilla = tablero.obtenerCasillaNumero(numeroCasilla);
+        jugadorActual.venderPropiedad(casilla);
+        TituloPropiedad titulo = casilla.getTitulo();
+        setEstadoJuego(EstadoJuego.JA_PUEDEGESTIONAR);
     }
 }

@@ -35,7 +35,11 @@ public class TituloPropiedad {
     }
     
     int calcularCosteHipotecar(){
-        return 0;
+        int costeHipoteca = 0;
+        
+        costeHipoteca = (int) (this.hipotecaBase + this.numCasas*0.5*this.hipotecaBase + this.numHoteles*this.hipotecaBase);
+        
+        return costeHipoteca;
     }
     
     double calcularImporteAlquiler(){
@@ -47,7 +51,11 @@ public class TituloPropiedad {
     }
     
     int calcularPrecioVenta(){
-        return 0;
+        int precioVenta;
+        
+        precioVenta = (int) (precioCompra + (numCasas + numHoteles) * precioEdificar * factorRevalorizacion);
+        
+        return precioVenta;
     }
     
     int cancelarHipoteca(){
@@ -59,7 +67,7 @@ public class TituloPropiedad {
     }
     
     void edificarCasa(){
-        throw new UnsupportedOperationException("Sin implementar");
+        this.numCasas++;
     }
     
     void edificarHotel(){
@@ -111,7 +119,10 @@ public class TituloPropiedad {
     }
     
     int hipotecar(){
-        return 0;
+        int costeHipoteca = calcularCosteHipotecar();
+        this.setHipotecada(true);
+        
+        return costeHipoteca;
     }
     
     int pagarAlquiler(){
