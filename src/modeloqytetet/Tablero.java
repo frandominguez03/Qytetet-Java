@@ -14,7 +14,7 @@ public class Tablero {
         return carcel.getNumeroCasilla() == numeroCasilla;
     }
 
-    ArrayList getCasillas() {
+    ArrayList<Casilla> getCasillas() {
         return casillas;
     }
 

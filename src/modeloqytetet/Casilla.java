@@ -79,7 +79,4 @@ public class Casilla {
             return "Casilla{" + "numeroCasilla:" + numeroCasilla + ", precioCompra:" + coste + ", tipo:" + tipo + '}';
         }
     }
-    
-    
-
 }

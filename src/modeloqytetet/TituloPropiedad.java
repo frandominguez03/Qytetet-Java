@@ -67,17 +67,13 @@ public class TituloPropiedad {
         
         return true;
     }
-    
-    void cobrarAlquiler(int coste){
-        throw new UnsupportedOperationException("Sin implementar");
-    }
-    
+
     void edificarCasa(){
         this.numCasas++;
     }
     
     void edificarHotel(){
-        throw new UnsupportedOperationException("Sin implementar");
+        this.numHoteles++;
     }
 
     void setHipotecada(boolean hipotecada) {
@@ -132,7 +128,8 @@ public class TituloPropiedad {
     }
     
     int pagarAlquiler(){
-        return 0;
+        this.propietario.modificarSaldo((int) calcularImporteAlquiler());
+        return (int) this.calcularImporteAlquiler();
     }
     
     boolean propietarioEncarcelado(){

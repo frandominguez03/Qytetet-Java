@@ -116,7 +116,13 @@ public class Qytetet {
             }
     
     public boolean cancelarHipoteca(int numeroCasilla){
-        return false;
+        Casilla casilla = tablero.obtenerCasillaNumero(numeroCasilla);
+        TituloPropiedad titulo = casilla.getTitulo();
+        boolean puedeCancelar = jugadorActual.cancelarHipoteca(titulo);
+        
+        setEstadoJuego(EstadoJuego.JA_PUEDEGESTIONAR);
+        
+        return puedeCancelar;
     }
     
     public boolean comprarTituloPropiedad(){
@@ -196,7 +202,6 @@ public class Qytetet {
         return jugadores;
     }
     
-    
     public ArrayList getMazo(){
         return mazo;   
     }
@@ -245,12 +250,6 @@ public class Qytetet {
            
             mazo.add(new Sorpresa ("Un afiliado de tu partido intercede. Sales de la cárcel",
                     0, TipoSorpresa.SALIRCARCEL));
-    }
-    
-    @Override
-    public String toString(){
-        return "Tablero: {" + tablero + "}, Mazo: {" + mazo + "}, cartaActual: {" + cartaActual +
-                "}, jugadorActual: {" + jugadorActual + "}";
     }
     
     public void inicializarJuego(ArrayList<String> nombres){
@@ -344,15 +343,23 @@ public class Qytetet {
     }
     
     public Casilla obtenerCasillaJugadorActual(){
-        return null;
+        return jugadorActual.getCasillaActual();
     }
     
-    public Casilla obtenerCasillasTablero(){
-        return null;
+    public ArrayList<Casilla> obtenerCasillasTablero(){
+        return tablero.getCasillas();
     }
     
-    public int obtenerPropiedadesJugador(){
-        return 0;
+    public ArrayList<Integer> obtenerPropiedadesJugador(){
+        ArrayList<Integer> casillas = new ArrayList<>();
+        String nombre;
+        
+        for(int i=0; i< jugadorActual.getPropiedades().size(); i++){
+            nombre = jugadorActual.getPropiedades().get(i).getNombre();
+            casillas.add(obtenerCasillasTablero().indexOf(nombre));
+        }
+        
+        return casillas;
     }
     
     public ArrayList<Integer> obtenerPropiedadesJugadorSegunEstadoHipoteca(boolean estadoHipoteca){
@@ -362,7 +369,7 @@ public class Qytetet {
         for (int i=0; i<jugadorActual.getPropiedades().size(); i++){
             if(jugadorActual.getPropiedades().get(i).getHipotecada() == estadoHipoteca){
                 nombre = jugadorActual.getPropiedades().get(i).getNombre();
-                casillas.add(tablero.getCasillas().indexOf(nombre));
+                casillas.add(obtenerCasillasTablero().indexOf(nombre));
             }
         }
         
@@ -415,7 +422,12 @@ public class Qytetet {
     public void venderPropiedad(int numeroCasilla){
         Casilla casilla = tablero.obtenerCasillaNumero(numeroCasilla);
         jugadorActual.venderPropiedad(casilla);
-        TituloPropiedad titulo = casilla.getTitulo();
         setEstadoJuego(EstadoJuego.JA_PUEDEGESTIONAR);
+    }
+    
+    @Override
+    public String toString(){
+        return "Tablero: {" + tablero + "}, Mazo: {" + mazo + "}, cartaActual: {" + cartaActual +
+                "}, jugadorActual: {" + jugadorActual + "}";
     }
 }

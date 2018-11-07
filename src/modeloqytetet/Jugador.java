@@ -9,7 +9,6 @@ public class Jugador implements Comparable<Jugador> {
     private Sorpresa cartaLibertad;
     private Casilla casillaActual;
     
-    private Jugador propietario;
     private ArrayList<TituloPropiedad> propiedades;
     
     Jugador(String nombre){
@@ -134,7 +133,13 @@ public class Jugador implements Comparable<Jugador> {
     }
     
     boolean estoyEnCalleLibre(){
-        return false;
+        boolean calleLibre = false;
+        
+        if(casillaActual.getTitulo().getPropietario() != null){
+            calleLibre = true;
+        }
+        
+        return calleLibre;
     }
     
     Sorpresa getCartaLibertad(){
@@ -167,7 +172,7 @@ public class Jugador implements Comparable<Jugador> {
     }
     
     void irACarcel(Casilla casilla){
-        throw new UnsupportedOperationException("Sin implementar");
+        setEncarcelado(true);
     }
     
     int modificarSaldo(int cantidad){
