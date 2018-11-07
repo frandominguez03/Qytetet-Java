@@ -17,7 +17,15 @@ public class Jugador implements Comparable<Jugador> {
     }
     
     boolean cancelarHipoteca(TituloPropiedad titulo){
-        return false;
+        boolean puedeCancelar = false;
+        int costeCancelar = titulo.calcularCosteCancelar();
+        
+        if(saldo > costeCancelar){
+            titulo.cancelarHipoteca(); 
+            puedeCancelar = true;
+        }
+        
+        return puedeCancelar;
     }
     
     boolean comprarTituloPropiedad(){
@@ -47,7 +55,7 @@ public class Jugador implements Comparable<Jugador> {
     boolean deboPagarAlquiler(){
         boolean esDeMiPropiedad = esDeMiPropiedad(casillaActual.getTitulo());
         boolean tienePropietario = false;
-        boolean encarcelado = false;
+        boolean esta_encarcelado = false;
         boolean estaHipotecada = false;
         
         if(!esDeMiPropiedad && casillaActual.getTitulo().tengoPropietario()){
@@ -55,14 +63,14 @@ public class Jugador implements Comparable<Jugador> {
         }
         
         if(!esDeMiPropiedad && tienePropietario && casillaActual.getTitulo().propietarioEncarcelado()){
-            encarcelado = true;
+            esta_encarcelado = true;
         }
         
         if(!esDeMiPropiedad && tienePropietario && casillaActual.getTitulo().getHipotecada()){
             estaHipotecada = true;
         }
         
-        return !esDeMiPropiedad && tienePropietario && !encarcelado && !estaHipotecada;
+        return !esDeMiPropiedad && tienePropietario && !esta_encarcelado && !estaHipotecada;
     }
     
     Sorpresa devolverCartaLibertad(){
@@ -91,7 +99,22 @@ public class Jugador implements Comparable<Jugador> {
     }
     
     boolean edificarHotel(TituloPropiedad titulo){
-        return false;
+        boolean hayEspacio = titulo.getNumHoteles() < 4;
+        boolean tengoSaldo = false;
+        boolean edificado = hayEspacio && tengoSaldo;
+        int costeEdificarHotel = 0;
+        
+        if(hayEspacio){
+            costeEdificarHotel = titulo.getPrecioEdificar();
+            tengoSaldo = tengoSaldo(costeEdificarHotel);
+        }
+        
+        if(hayEspacio && tengoSaldo){
+            titulo.edificarCasa();
+            this.modificarSaldo(-costeEdificarHotel);
+        }
+        
+        return edificado;
     }
     
     private void eliminarDeMisPropiedades(TituloPropiedad titulo){

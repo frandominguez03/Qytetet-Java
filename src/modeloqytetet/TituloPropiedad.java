@@ -31,7 +31,11 @@ public class TituloPropiedad {
     }
     
     int calcularCosteCancelar(){
-        return 0;
+        int costeCancelar = 0;
+        
+        costeCancelar = (int) (calcularCosteHipotecar() + calcularCosteHipotecar()*0.1);
+        
+        return costeCancelar;
     }
     
     int calcularCosteHipotecar(){
@@ -58,8 +62,10 @@ public class TituloPropiedad {
         return precioVenta;
     }
     
-    int cancelarHipoteca(){
-        return 0;
+    boolean cancelarHipoteca(){
+        this.hipotecada = false;
+        
+        return true;
     }
     
     void cobrarAlquiler(int coste){

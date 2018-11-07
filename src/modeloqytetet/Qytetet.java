@@ -154,7 +154,13 @@ public class Qytetet {
     }
     
     public boolean edificarHotel(int numeroCasilla){
-        return false;
+        Casilla casilla = tablero.obtenerCasillaNumero(numeroCasilla);
+        TituloPropiedad titulo = casilla.getTitulo();
+        boolean edificado = jugadorActual.edificarHotel(titulo);
+        
+        setEstadoJuego(EstadoJuego.JA_PUEDEGESTIONAR);
+        
+        return edificado;
     }
     
     private void encarcelarJugador(){
