@@ -1,6 +1,7 @@
 package modeloqytetet;
 import java.util.ArrayList;
 import java.util.Collections;
+
 public class Qytetet {
     private static final Qytetet instance = new Qytetet();
     private static ArrayList<Sorpresa> mazo = new ArrayList<>(); 
@@ -9,6 +10,7 @@ public class Qytetet {
     private static Dado dado = Dado.getInstance();
     private Sorpresa cartaActual;
     private Jugador jugadorActual;
+    private MetodoSalirCarcel metodo;
     private EstadoJuego estado;
     
     public static int MAX_JUGADORES = 4;
@@ -27,25 +29,33 @@ public class Qytetet {
     
     void actuarSiEnCasillaEdificable(){
         boolean deboPagar = jugadorActual.deboPagarAlquiler();
-        boolean tengoPropietario = jugadorActual.getCasillaActual().tengoPropietario();
         jugadorActual.setCasillaActual(obtenerCasillaJugadorActual());
         
         if(deboPagar){
             jugadorActual.pagarAlquiler();
+            
+            if(jugadorActual.getSaldo() < 0){
+                setEstadoJuego(EstadoJuego.ALGUNJUGADORENBANCARROTA);
+            }
         }
         
-        if(tengoPropietario){
-            setEstadoJuego(EstadoJuego.JA_PUEDEGESTIONAR);
-        }
+        Casilla casilla = obtenerCasillaJugadorActual();
+        boolean tengoPropietario = jugadorActual.getCasillaActual().tengoPropietario();
         
-        else{
-            setEstadoJuego(EstadoJuego.JA_PUEDECOMPRAROGESTIONAR);
+        if(estado != EstadoJuego.ALGUNJUGADORENBANCARROTA){
+            if(tengoPropietario){
+                setEstadoJuego(EstadoJuego.JA_PUEDEGESTIONAR);
+            }
+            
+            else{
+                setEstadoJuego(EstadoJuego.JA_PUEDECOMPRAROGESTIONAR);
+            }
         }
     }
     
     void actuarSiEnCasillaNoEdificable(){
         setEstadoJuego(EstadoJuego.JA_PUEDEGESTIONAR);
-        jugadorActual.setCasillaActual(jugadorActual.getCasillaActual());
+        Casilla casillaActual = jugadorActual.getCasillaActual();
         
         if(jugadorActual.getCasillaActual().getTipo() == TipoCasilla.IMPUESTO){
             jugadorActual.pagarImpuesto();
@@ -72,9 +82,7 @@ public class Qytetet {
         
         else{
             mazo.add(cartaActual);
-        }
-        
-        if(null != cartaActual.getTipo())switch (cartaActual.getTipo()) {
+            if(null != cartaActual.getTipo())switch (cartaActual.getTipo()) {
             case PAGARCOBRAR:
                 jugadorActual.modificarSaldo(cartaActual.getValor());
                 if(jugadorActual.getSaldo() < 0){
@@ -112,8 +120,9 @@ public class Qytetet {
                 break;
             default:
                 break;
-        }
             }
+        }
+    }
     
     public boolean cancelarHipoteca(int numeroCasilla){
         Casilla casilla = tablero.obtenerCasillaNumero(numeroCasilla);
@@ -172,10 +181,7 @@ public class Qytetet {
     private void encarcelarJugador(){
         if(!jugadorActual.tengoCartaLibertad()){
             Casilla casillaCarcel = tablero.getCarcel();
-            jugadorActual.irACarcel(casillaCarcel);
-            jugadorActual.setCasillaActual(casillaCarcel);
-            jugadorActual.setEncarcelado(true);
-            
+            jugadorActual.irACarcel(casillaCarcel);            
             setEstadoJuego(EstadoJuego.JA_ENCARCELADO);
         }
         
@@ -281,18 +287,12 @@ public class Qytetet {
         else{
             if(metodo == MetodoSalirCarcel.PAGANDOLIBERTAD){
                 jugadorActual.pagarLibertad(PRECIO_LIBERTAD);
-                boolean tengoSaldo = jugadorActual.tengoSaldo(PRECIO_LIBERTAD);
-                
-                if(tengoSaldo){
-                    jugadorActual.setEncarcelado(false);
-                    jugadorActual.modificarSaldo(-PRECIO_LIBERTAD);
-                }
             }
         }
         
-        boolean libre = jugadorActual.getEncarcelado();
+        boolean encarcelado = jugadorActual.getEncarcelado();
         
-        if(libre){
+        if(encarcelado){
             setEstadoJuego(EstadoJuego.JA_ENCARCELADO);
         }
         
@@ -300,7 +300,7 @@ public class Qytetet {
             setEstadoJuego(EstadoJuego.JA_PREPARADO);
         }
         
-        return libre;
+        return encarcelado;
     }
     
     public boolean jugadorActualEnCalleLibre(){
@@ -329,7 +329,7 @@ public class Qytetet {
         Casilla casillaFinal = tablero.obtenerCasillaNumero(numCasillaDestino);
         jugadorActual.setCasillaActual(casillaFinal);
         
-        if(numCasillaDestino<casillaInicial.getNumeroCasilla()){
+        if(numCasillaDestino < casillaInicial.getNumeroCasilla()){
             jugadorActual.modificarSaldo(SALDO_SALIDA);
         }
         
@@ -376,7 +376,7 @@ public class Qytetet {
         return casillas;
     }
     
-    public void obtenerRanking(ArrayList<Jugador> jugadores){
+    public void obtenerRanking(){
         Collections.sort(jugadores);
     }
     

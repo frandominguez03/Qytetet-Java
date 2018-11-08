@@ -1,7 +1,7 @@
 package modeloqytetet;
 import java.util.ArrayList;
 
-public class Jugador implements Comparable<Jugador> {
+public class Jugador implements Comparable {
     private boolean encarcelado = false;
     private String nombre;
     private int saldo = 7500;
@@ -52,24 +52,25 @@ public class Jugador implements Comparable<Jugador> {
     }
     
     boolean deboPagarAlquiler(){
-        boolean esDeMiPropiedad = esDeMiPropiedad(casillaActual.getTitulo());
+        TituloPropiedad titulo = casillaActual.getTitulo();
+        boolean esDeMiPropiedad = esDeMiPropiedad(titulo);
         boolean tienePropietario = false;
         boolean esta_encarcelado = false;
         boolean estaHipotecada = false;
         
-        if(!esDeMiPropiedad && casillaActual.getTitulo().tengoPropietario()){
-            tienePropietario = true;
+        if(!esDeMiPropiedad){
+            tienePropietario = titulo.tienePropietario();
         }
         
-        if(!esDeMiPropiedad && tienePropietario && casillaActual.getTitulo().propietarioEncarcelado()){
-            esta_encarcelado = true;
+        if(!esDeMiPropiedad && tienePropietario){
+            encarcelado = titulo.propietarioEncarcelado();
         }
         
-        if(!esDeMiPropiedad && tienePropietario && casillaActual.getTitulo().getHipotecada()){
-            estaHipotecada = true;
+        if(!esDeMiPropiedad && tienePropietario && !encarcelado){
+            estaHipotecada = titulo.getHipotecada();
         }
         
-        return !esDeMiPropiedad && tienePropietario && !esta_encarcelado && !estaHipotecada;
+        return !esDeMiPropiedad && tienePropietario && !encarcelado && !estaHipotecada;
     }
     
     Sorpresa devolverCartaLibertad(){
@@ -167,11 +168,12 @@ public class Jugador implements Comparable<Jugador> {
     }
     
     void hipotecarPropiedad(TituloPropiedad titulo){
-        int costeHipoteca = casillaActual.getTitulo().hipotecar();
+        int costeHipoteca = titulo.hipotecar();
         modificarSaldo(costeHipoteca);
     }
     
     void irACarcel(Casilla casilla){
+        setCasillaActual(casilla);
         setEncarcelado(true);
     }
     
@@ -208,7 +210,7 @@ public class Jugador implements Comparable<Jugador> {
     }
     
     void pagarAlquiler(){
-        double costeAlquiler = casillaActual.pagarAlquiler();
+        int costeAlquiler = (int) casillaActual.pagarAlquiler();
         this.modificarSaldo((int) -costeAlquiler);
     }
     
@@ -217,7 +219,12 @@ public class Jugador implements Comparable<Jugador> {
     }
     
     void pagarLibertad(int cantidad){
-        throw new UnsupportedOperationException("Sin implementar");
+        boolean tengoSaldo = tengoSaldo(cantidad);
+        
+        if(tengoSaldo){
+            setEncarcelado(false);
+            modificarSaldo(-cantidad);
+        }
     }
     
     void setCartaLibertad(Sorpresa carta){
@@ -254,6 +261,9 @@ public class Jugador implements Comparable<Jugador> {
     
     void venderPropiedad(Casilla casilla){
         eliminarDeMisPropiedades(casilla.getTitulo());
+        casilla.getTitulo().setPropietario(null);
+        int precioVenta = casilla.getTitulo().calcularPrecioVenta();
+        modificarSaldo(precioVenta);
     }
     
     @Override
@@ -264,7 +274,7 @@ public class Jugador implements Comparable<Jugador> {
     }
     
     @Override
-    public int compareTo(Jugador otroJugador) {
+    public int compareTo(Object otroJugador) {
         int otroCapital = ((Jugador) otroJugador).obtenerCapital();
         
         return otroCapital-this.obtenerCapital();

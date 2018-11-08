@@ -46,10 +46,10 @@ public class TituloPropiedad {
         return costeHipoteca;
     }
     
-    double calcularImporteAlquiler(){
-        double costeAlquiler;
+    int calcularImporteAlquiler(){
+        int costeAlquiler;
             
-        costeAlquiler = this.alquilerBase + this.numHoteles*0.5 + this.numCasas*2;
+        costeAlquiler = (int) (this.alquilerBase + this.numHoteles*0.5 + this.numCasas*2);
         
         return costeAlquiler;
     }
@@ -128,8 +128,10 @@ public class TituloPropiedad {
     }
     
     int pagarAlquiler(){
-        this.propietario.modificarSaldo((int) calcularImporteAlquiler());
-        return (int) this.calcularImporteAlquiler();
+        int costeAlquiler = (int) calcularImporteAlquiler();
+        this.propietario.modificarSaldo(costeAlquiler);
+        
+        return costeAlquiler;
     }
     
     boolean propietarioEncarcelado(){
@@ -140,7 +142,7 @@ public class TituloPropiedad {
         this.propietario = propietario;
     }
     
-    boolean tengoPropietario(){
+    boolean tienePropietario(){
         return propietario != null;
     }
 
