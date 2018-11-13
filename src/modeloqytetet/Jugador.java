@@ -9,7 +9,7 @@ public class Jugador implements Comparable {
     private Sorpresa cartaLibertad;
     private Casilla casillaActual;
     
-    private ArrayList<TituloPropiedad> propiedades;
+    private ArrayList<TituloPropiedad> propiedades = new ArrayList<>();
     
     Jugador(String nombre){
         this.nombre = nombre;
@@ -99,19 +99,18 @@ public class Jugador implements Comparable {
     }
     
     boolean edificarHotel(TituloPropiedad titulo){
-        boolean hayEspacio = titulo.getNumHoteles() < 4;
-        boolean tengoSaldo = false;
-        boolean edificado = hayEspacio && tengoSaldo;
-        int costeEdificarHotel = 0;
+        boolean edificado = false;
+        int numHoteles = titulo.getNumHoteles();
         
-        if(hayEspacio){
-            costeEdificarHotel = titulo.getPrecioEdificar();
-            tengoSaldo = tengoSaldo(costeEdificarHotel);
-        }
-        
-        if(hayEspacio && tengoSaldo){
-            titulo.edificarCasa();
-            this.modificarSaldo(-costeEdificarHotel);
+        if(numHoteles < 4){
+            int costeEdificarHotel = titulo.getPrecioEdificar();
+            boolean tengoSaldo = tengoSaldo(costeEdificarHotel);
+            
+            if(tengoSaldo){
+                titulo.edificarHotel();
+                this.modificarSaldo(-costeEdificarHotel);
+                edificado = true;
+            }
         }
         
         return edificado;
@@ -183,11 +182,11 @@ public class Jugador implements Comparable {
     
     int obtenerCapital(){
         int saldo_total = 0;
-        
+                
         for(int i=0; i<propiedades.size(); i++){
             saldo_total += propiedades.get(i).getPrecioCompra()
-                    + propiedades.get(i).getNumCasas()*propiedades.get(i).getPrecioEdificar()
-                    + propiedades.get(i).getNumHoteles()*propiedades.get(i).getPrecioEdificar();
+                    + (propiedades.get(i).getNumCasas()*propiedades.get(i).getPrecioEdificar())
+                    + (propiedades.get(i).getNumHoteles()*propiedades.get(i).getPrecioEdificar());
             
             if(propiedades.get(i).getHipotecada()){
                 saldo_total -= propiedades.get(i).getHipotecaBase();

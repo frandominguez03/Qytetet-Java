@@ -68,31 +68,81 @@ public class PruebaQytetet {
         // Inicializaciones
        ArrayList <String> nombres = new ArrayList<>();
        nombres = getNombreJugadores();
-       Qytetet.inicializarJuego(nombres);
+       juego.inicializarJuego(nombres);
        Tablero tab = new Tablero();
        
        // Imprime el mazo y los métodos de la clase Qytetet
-       System.out.println("Imprimimos el mazo y los métodos de la clase Qytetet");
+       /*System.out.println("Imprimimos el mazo y los métodos de la clase Qytetet");
        System.out.println(juego.getMazo().toString());
        System.out.println(MayorCero(juego.getMazo()));
        System.out.println(TipoCasilla(juego.getMazo()));
        
        for(TipoSorpresa t: TipoSorpresa.values()){
            System.out.println (TipoSorpresa(juego.getMazo(),t));
-       }
+       }/*
        
        // Imprime el tablero
-       System.out.println("Imprimimos el tablero");
-       System.out.println(tab);
-        
-       // Imprime todos los jugadores
-       System.out.println("Imprimimos los jugadores");
-       System.out.println(juego.getJugadores());
+       /*System.out.println("Imprimimos el tablero");
+       System.out.println(tab);*/
        
        // Imprime la única instancia de Qytetet
-       System.out.println("Imprimimos la instancia Qytetet");
-       System.out.println(juego);
-        
+       /*System.out.println("Imprimimos la instancia Qytetet");
+       System.out.println(juego);*/
+       
+       // Vamos a caer en todas las Sorpresas
+       /*juego.jugar();
+       juego.mover(2);
+       System.out.println(juego.getJugadorActual().getCasillaActual());
+       juego.aplicarSorpresa();
+       
+       juego.mover(8);
+       System.out.println(juego.getJugadorActual().getCasillaActual());
+       System.out.println(juego.getCartaActual());
+       juego.aplicarSorpresa();
+       System.out.println(juego.getJugadorActual().getCasillaActual());
+       
+       juego.mover(16);
+       System.out.println(juego.getJugadorActual().getCasillaActual());
+       juego.aplicarSorpresa();*/
+       
+       /*juego.mover(9);
+       System.out.println(juego.getJugadorActual().getCasillaActual());*/
+       
+       // Probando a hipotecar, cancelar hipoteca, edificar...
+       /*juego.jugar();
+       juego.hipotecarPropiedad(5);
+       juego.cancelarHipoteca(5);
+       juego.venderPropiedad(5);
+       juego.comprarTituloPropiedad();
+       juego.edificarCasa(7);*/
+       
+       // Probar a salir de la cárcel
+       /*juego.getJugadorActual().irACarcel(juego.obtenerCasillasTablero().get(14));
+       System.out.println(juego.getJugadorActual().getCasillaActual());
+       if(juego.getJugadorActual().tengoCartaLibertad()){
+           juego.intentarSalirCarcel(MetodoSalirCarcel.PAGANDOLIBERTAD);
+       }
+       
+       else{
+           boolean consigue = juego.intentarSalirCarcel(MetodoSalirCarcel.TIRANDODADO);
+           
+           if(consigue){
+               System.out.println("Consigue salir de la cárcel");
+           }
+           
+           else{
+               System.out.println("Al palo");
+           }
+       }*/
+       
+       // Probar obtener ránking
+       /*juego.jugar();
+       System.out.println(juego.getJugadores());
+       juego.getJugadorActual().modificarSaldo(-300);
+       juego.siguienteJugador();
+       juego.getJugadorActual().modificarSaldo(300);
+       juego.obtenerRanking();
+       System.out.println(juego.getJugadores());*/
     }
     
 }

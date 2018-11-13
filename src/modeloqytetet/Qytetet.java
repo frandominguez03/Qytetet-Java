@@ -1,5 +1,6 @@
 package modeloqytetet;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Collections;
 
 public class Qytetet {
@@ -67,7 +68,8 @@ public class Qytetet {
             }
             
             else{
-                mazo.remove(cartaActual);
+                cartaActual = mazo.get(0);
+                mazo.remove(0);
                 setEstadoJuego(EstadoJuego.JA_CONSORPRESA);
             }
         }
@@ -82,6 +84,7 @@ public class Qytetet {
         
         else{
             mazo.add(cartaActual);
+            
             if(null != cartaActual.getTipo())switch (cartaActual.getTipo()) {
             case PAGARCOBRAR:
                 jugadorActual.modificarSaldo(cartaActual.getValor());
@@ -171,9 +174,15 @@ public class Qytetet {
     public boolean edificarHotel(int numeroCasilla){
         Casilla casilla = tablero.obtenerCasillaNumero(numeroCasilla);
         TituloPropiedad titulo = casilla.getTitulo();
-        boolean edificado = jugadorActual.edificarHotel(titulo);
+        boolean edificado = false;
         
-        setEstadoJuego(EstadoJuego.JA_PUEDEGESTIONAR);
+        if(casilla.getTipo() == TipoCasilla.CALLE && titulo.getNumCasas() == 4){
+            edificado = jugadorActual.edificarHotel(titulo);
+            
+            if(edificado){
+               setEstadoJuego(EstadoJuego.JA_PUEDEGESTIONAR); 
+            }
+        }
         
         return edificado;
     }
@@ -277,7 +286,9 @@ public class Qytetet {
     
     public boolean intentarSalirCarcel(MetodoSalirCarcel metodo){
         if(metodo == MetodoSalirCarcel.TIRANDODADO){
+            System.out.println("Tirando dado...");
             int resultado = tirarDado();
+            System.out.println("El resultado es: " + resultado);
             
             if(resultado >= 5){
                 jugadorActual.setEncarcelado(false);
@@ -324,7 +335,7 @@ public class Qytetet {
         mover(casilla);
     }
     
-    private void mover(int numCasillaDestino){
+    void mover(int numCasillaDestino){
         Casilla casillaInicial = jugadorActual.getCasillaActual();
         Casilla casillaFinal = tablero.obtenerCasillaNumero(numCasillaDestino);
         jugadorActual.setCasillaActual(casillaFinal);
@@ -388,6 +399,11 @@ public class Qytetet {
         for(int i=0; i<jugadores.size(); i++){
             jugadores.get(i).setCasillaActual(tablero.obtenerCasillaNumero(0));
         }
+        
+        Random  jug_aleatorio = new Random();
+        int jugador = jug_aleatorio.nextInt(jugadores.size())+1;
+        
+        jugadorActual = jugadores.get(jugador);
         
         setEstadoJuego(EstadoJuego.JA_PREPARADO);
     }

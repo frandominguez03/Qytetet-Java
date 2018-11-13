@@ -74,6 +74,7 @@ public class TituloPropiedad {
     
     void edificarHotel(){
         this.numHoteles++;
+        this.numCasas = 0;
     }
 
     void setHipotecada(boolean hipotecada) {
