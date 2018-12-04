@@ -58,12 +58,12 @@ public class Qytetet {
         setEstadoJuego(EstadoJuego.JA_PUEDEGESTIONAR);
         Casilla casillaActual = jugadorActual.getCasillaActual();
         
-        if(jugadorActual.getCasillaActual().getTipo() == TipoCasilla.IMPUESTO){
+        if(casillaActual.getTipo() == TipoCasilla.IMPUESTO){
             jugadorActual.pagarImpuesto();
         }
         
         else{
-            if(jugadorActual.getCasillaActual().getTipo() == TipoCasilla.JUEZ){
+            if(casillaActual.getTipo() == TipoCasilla.JUEZ){
                 encarcelarJugador();
             }
             
@@ -121,6 +121,8 @@ public class Qytetet {
                     }
                 }
                 break;
+            case CONVERTIRME:
+                jugadorActual = jugadorActual.convertirme(cartaActual.getValor());
             default:
                 break;
             }
@@ -188,7 +190,7 @@ public class Qytetet {
     }
     
     private void encarcelarJugador(){
-        if(!jugadorActual.tengoCartaLibertad()){
+        if(jugadorActual.deboIrACarcel()){
             Casilla casillaCarcel = tablero.getCarcel();
             jugadorActual.irACarcel(casillaCarcel);            
             setEstadoJuego(EstadoJuego.JA_ENCARCELADO);
@@ -234,6 +236,10 @@ public class Qytetet {
     
     private static void inicializarCartasSorpresa(){
         inicializarTablero();
+            mazo.add(new Sorpresa("Me convierto en especulador, porque puedo", 3000, TipoSorpresa.CONVERTIRME));
+            
+            mazo.add(new Sorpresa("Una nueva carta que te convierte en especulador", 5000, TipoSorpresa.CONVERTIRME));
+            
             mazo.add(new Sorpresa ("Te hemos pillado con las manos en los sobres, lo sentimos, ¡debes ir a la carcel!", 
                     tablero.getCarcel().getNumeroCasilla(), TipoSorpresa.IRACASILLA));
             

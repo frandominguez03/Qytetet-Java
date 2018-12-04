@@ -11,8 +11,17 @@ public class Jugador implements Comparable {
     
     private ArrayList<TituloPropiedad> propiedades = new ArrayList<>();
     
-    Jugador(String nombre){
+    protected Jugador(String nombre){
         this.nombre = nombre;
+    }
+    
+    protected Jugador(Jugador otroJugador){
+        this.nombre = otroJugador.getNombre();
+        this.saldo = otroJugador.getSaldo();
+        this.encarcelado = otroJugador.getEncarcelado();
+        this.cartaLibertad = otroJugador.getCartaLibertad();
+        this.casillaActual = otroJugador.getCasillaActual();
+        this.propiedades = otroJugador.getPropiedades();
     }
     
     boolean cancelarHipoteca(TituloPropiedad titulo){
@@ -25,6 +34,12 @@ public class Jugador implements Comparable {
         }
         
         return puedeCancelar;
+    }
+    
+    protected Especulador convertirme(int fianza){
+        Especulador especula = new Especulador(this, fianza);
+        
+        return especula;
     }
     
     boolean comprarTituloPropiedad(){
@@ -49,6 +64,10 @@ public class Jugador implements Comparable {
         }
         
         return contador;
+    }
+    
+    protected boolean deboIrACarcel(){
+        return !tengoCartaLibertad();
     }
     
     boolean deboPagarAlquiler(){
@@ -80,19 +99,13 @@ public class Jugador implements Comparable {
     }
     
     boolean edificarCasa(TituloPropiedad titulo){
-        boolean hayEspacio = titulo.getNumCasas() < 4;
-        boolean tengoSaldo = false;
-        boolean edificada = hayEspacio && tengoSaldo;
-        int costeEdificarCasa = 0;
+        boolean edificada = false;
+        int costeEdificarCasa = titulo.getPrecioEdificar();
         
-        if(hayEspacio){
-            costeEdificarCasa = titulo.getPrecioEdificar();
-            tengoSaldo = tengoSaldo(costeEdificarCasa);
-        }
-        
-        if(hayEspacio && tengoSaldo){
+        if(puedoEdificarCasa(titulo)){
             titulo.edificarCasa();
             this.modificarSaldo(-costeEdificarCasa);
+            edificada = true;
         }
         
         return edificada;
@@ -100,18 +113,12 @@ public class Jugador implements Comparable {
     
     boolean edificarHotel(TituloPropiedad titulo){
         boolean edificado = false;
-        int numHoteles = titulo.getNumHoteles();
         
-        if(numHoteles < 4){
-            int costeEdificarHotel = titulo.getPrecioEdificar();
-            boolean tengoSaldo = tengoSaldo(costeEdificarHotel);
-            
-            if(tengoSaldo){
+        if(puedoEdificarHotel(titulo)){
                 titulo.edificarHotel();
-                this.modificarSaldo(-costeEdificarHotel);
+                this.modificarSaldo(-titulo.getPrecioEdificar());
                 edificado = true;
             }
-        }
         
         return edificado;
     }
@@ -213,7 +220,7 @@ public class Jugador implements Comparable {
         this.modificarSaldo((int) -costeAlquiler);
     }
     
-    void pagarImpuesto(){
+    protected void pagarImpuesto(){
         this.saldo-=casillaActual.getCoste();
     }
     
@@ -224,6 +231,25 @@ public class Jugador implements Comparable {
             setEncarcelado(false);
             modificarSaldo(-cantidad);
         }
+    }
+    
+    protected boolean puedoEdificarCasa(TituloPropiedad titulo){
+        boolean hayEspacio = titulo.getNumCasas() < 4;
+        boolean tengoSaldo = false;
+        
+        if(hayEspacio){
+            int costeEdificarCasa = titulo.getPrecioEdificar();
+            tengoSaldo = tengoSaldo(costeEdificarCasa);
+        }
+        
+        return hayEspacio && tengoSaldo;
+    }
+    
+    protected boolean puedoEdificarHotel(TituloPropiedad titulo){
+        int numHoteles = titulo.getNumHoteles();
+        boolean tengoSaldo = tengoSaldo(titulo.getPrecioEdificar());
+        
+        return numHoteles < 4 && tengoSaldo;
     }
     
     void setCartaLibertad(Sorpresa carta){
@@ -254,7 +280,7 @@ public class Jugador implements Comparable {
         return this.cartaLibertad != null;
     }
     
-    boolean tengoSaldo(int cantidad){
+    protected boolean tengoSaldo(int cantidad){
         return this.saldo>cantidad;
     }
     
