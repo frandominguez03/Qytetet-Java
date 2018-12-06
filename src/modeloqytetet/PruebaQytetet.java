@@ -104,11 +104,11 @@ public class PruebaQytetet {
 //       juego.mover(16);
 //       System.out.println(juego.getJugadorActual().getCasillaActual());
 //       juego.aplicarSorpresa();
-       
+//       
 //       juego.mover(9);
 //       System.out.println(juego.getJugadorActual().getCasillaActual());
 //       
-//       // Probando a hipotecar, cancelar hipoteca, edificar...
+       // Probando a hipotecar, cancelar hipoteca, edificar...
 //       juego.jugar();
 //       juego.hipotecarPropiedad(5);
 //       juego.cancelarHipoteca(5);

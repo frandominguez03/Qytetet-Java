@@ -15,21 +15,6 @@ public class Casilla {
             coste = titulo.getPrecioCompra();
         }
     }
-    
-    Casilla(TipoCasilla un_tipo, int numCasilla){
-        numeroCasilla = numCasilla;
-        
-        if(un_tipo != TipoCasilla.CALLE){
-            this.tipo = un_tipo;
-            coste = 0;
-        }
-    }
-    
-    TituloPropiedad asignarPropietario(Jugador jugador){
-        this.titulo.setPropietario(jugador);
-        
-        return titulo;
-    }
 
    int getNumeroCasilla() {
         return this.numeroCasilla;
@@ -37,18 +22,6 @@ public class Casilla {
 
     int getCoste() {
         return this.coste;
-    }
-
-    TipoCasilla getTipo() {
-        return this.tipo;
-    }
-
-    TituloPropiedad getTitulo() {
-        return this.titulo;
-    }
-    
-    double pagarAlquiler(){
-        return this.titulo.pagarAlquiler();
     }
     
     private void setTipo(TipoCasilla tipo){
@@ -59,12 +32,12 @@ public class Casilla {
         this.titulo = titulo;
     }
     
-    boolean soyEdificable(){
-        return this.tipo == TipoCasilla.CALLE;
+    public void setCoste(int coste){
+        this.coste = coste;
     }
     
-    boolean tengoPropietario(){
-        return titulo.tienePropietario();
+    protected boolean soyEdificable(){
+        return this.tipo == TipoCasilla.CALLE;
     }
     
     boolean propietarioEncarcelado(){

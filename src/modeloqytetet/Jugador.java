@@ -48,7 +48,8 @@ public class Jugador implements Comparable {
         
         if(costeCompra<saldo){
             comprado = true;
-            TituloPropiedad titulo = casillaActual.asignarPropietario(this);
+            Calle cas = (Calle) casillaActual;
+            TituloPropiedad titulo = cas.getTitulo();
             titulo.setPropietario(this);
             propiedades.add(titulo);
             this.modificarSaldo(-costeCompra);
@@ -71,7 +72,8 @@ public class Jugador implements Comparable {
     }
     
     boolean deboPagarAlquiler(){
-        TituloPropiedad titulo = casillaActual.getTitulo();
+        Calle cas = (Calle) casillaActual;
+        TituloPropiedad titulo = cas.getTitulo();
         boolean esDeMiPropiedad = esDeMiPropiedad(titulo);
         boolean tienePropietario = false;
         boolean esta_encarcelado = false;
@@ -141,8 +143,9 @@ public class Jugador implements Comparable {
     
     boolean estoyEnCalleLibre(){
         boolean calleLibre = false;
+        Calle cas = (Calle) casillaActual;
         
-        if(casillaActual.getTitulo().getPropietario() != null){
+        if(cas.getTitulo().getPropietario() != null){
             calleLibre = true;
         }
         
@@ -216,8 +219,9 @@ public class Jugador implements Comparable {
     }
     
     void pagarAlquiler(){
-        int costeAlquiler = (int) casillaActual.pagarAlquiler();
-        this.modificarSaldo((int) -costeAlquiler);
+        Calle cas = (Calle) casillaActual;
+        int costeAlquiler = cas.pagarAlquiler();
+        this.modificarSaldo(-costeAlquiler);
     }
     
     protected void pagarImpuesto(){
@@ -285,9 +289,10 @@ public class Jugador implements Comparable {
     }
     
     void venderPropiedad(Casilla casilla){
-        eliminarDeMisPropiedades(casilla.getTitulo());
-        casilla.getTitulo().setPropietario(null);
-        int precioVenta = casilla.getTitulo().calcularPrecioVenta();
+        Calle cas = (Calle) casilla;
+        eliminarDeMisPropiedades(cas.getTitulo());
+        cas.getTitulo().setPropietario(null);
+        int precioVenta = cas.getTitulo().calcularPrecioVenta();
         modificarSaldo(precioVenta);
     }
     

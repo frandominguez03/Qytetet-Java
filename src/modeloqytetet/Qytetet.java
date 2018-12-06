@@ -40,8 +40,8 @@ public class Qytetet {
             }
         }
         
-        Casilla casilla = obtenerCasillaJugadorActual();
-        boolean tengoPropietario = jugadorActual.getCasillaActual().tengoPropietario();
+        Calle casilla = (Calle) obtenerCasillaJugadorActual();
+        boolean tengoPropietario = casilla.tengoPropietario();
         
         if(estado != EstadoJuego.ALGUNJUGADORENBANCARROTA){
             if(tengoPropietario){
@@ -56,7 +56,7 @@ public class Qytetet {
     
     void actuarSiEnCasillaNoEdificable(){
         setEstadoJuego(EstadoJuego.JA_PUEDEGESTIONAR);
-        Casilla casillaActual = jugadorActual.getCasillaActual();
+        OtraCasilla casillaActual = (OtraCasilla) jugadorActual.getCasillaActual();
         
         if(casillaActual.getTipo() == TipoCasilla.IMPUESTO){
             jugadorActual.pagarImpuesto();
@@ -130,7 +130,7 @@ public class Qytetet {
     }
     
     public boolean cancelarHipoteca(int numeroCasilla){
-        Casilla casilla = tablero.obtenerCasillaNumero(numeroCasilla);
+        Calle casilla = (Calle) tablero.obtenerCasillaNumero(numeroCasilla);
         TituloPropiedad titulo = casilla.getTitulo();
         boolean puedeCancelar = jugadorActual.cancelarHipoteca(titulo);
         
@@ -149,7 +149,7 @@ public class Qytetet {
     
     public boolean edificarCasa(int numeroCasilla){
         boolean edificada = false;
-        Casilla casilla = tablero.obtenerCasillaNumero(numeroCasilla);
+        Calle casilla = (Calle) tablero.obtenerCasillaNumero(numeroCasilla);
         TituloPropiedad titulo = casilla.getTitulo();
         jugadorActual.edificarCasa(titulo);
         int numCasas = titulo.getNumCasas();
@@ -174,7 +174,7 @@ public class Qytetet {
     }
     
     public boolean edificarHotel(int numeroCasilla){
-        Casilla casilla = tablero.obtenerCasillaNumero(numeroCasilla);
+        Calle casilla = (Calle) tablero.obtenerCasillaNumero(numeroCasilla);
         TituloPropiedad titulo = casilla.getTitulo();
         boolean edificado = false;
         
@@ -190,7 +190,7 @@ public class Qytetet {
     }
     
     private void encarcelarJugador(){
-        if(jugadorActual.deboIrACarcel()){
+        if(!jugadorActual.deboIrACarcel()){
             Casilla casillaCarcel = tablero.getCarcel();
             jugadorActual.irACarcel(casillaCarcel);            
             setEstadoJuego(EstadoJuego.JA_ENCARCELADO);
@@ -228,7 +228,7 @@ public class Qytetet {
     }
     
     public void hipotecarPropiedad(int numeroCasilla){
-        Casilla casilla = tablero.obtenerCasillaNumero(numeroCasilla);
+        Calle casilla = (Calle) tablero.obtenerCasillaNumero(numeroCasilla);
         TituloPropiedad titulo = casilla.getTitulo();
         jugadorActual.hipotecarPropiedad(titulo);
         setEstadoJuego(EstadoJuego.JA_PUEDEGESTIONAR);
@@ -322,9 +322,10 @@ public class Qytetet {
     
     public boolean jugadorActualEnCalleLibre(){
         boolean resultado = false;
+        Calle casillaActual = (Calle) jugadorActual.getCasillaActual();
         
-        if(jugadorActual.getCasillaActual().soyEdificable() == true &&
-                jugadorActual.getCasillaActual().getTitulo().getPropietario() != null){
+        if(casillaActual.soyEdificable() == true &&
+                casillaActual.getTitulo().getPropietario() != null){
             resultado = true;
         }
         
