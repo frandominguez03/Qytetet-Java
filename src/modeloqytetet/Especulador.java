@@ -10,7 +10,7 @@ public class Especulador extends Jugador {
     
     @Override
     protected void pagarImpuesto(){
-        super.modificarSaldo(super.getCasillaActual().getCoste()/2);
+        modificarSaldo(getCasillaActual().getCoste()/2);
     }
     
     @Override
@@ -32,8 +32,8 @@ public class Especulador extends Jugador {
     private boolean pagarFianza(){
         boolean puedePagar = false;
         
-        if(super.getSaldo() > this.fianza){
-            super.modificarSaldo(-this.fianza);
+        if(getSaldo() > this.fianza){
+            modificarSaldo(-(this.fianza));
             puedePagar = true;
         }
         

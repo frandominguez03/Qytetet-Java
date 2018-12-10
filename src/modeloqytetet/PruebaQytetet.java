@@ -1,75 +1,75 @@
-package modeloqytetet;
-import java.util.ArrayList;
-import java.util.Scanner;
-
-public class PruebaQytetet {
-    private static Qytetet juego = Qytetet.getInstance();
-    private static final Scanner in = new Scanner (System.in);
-    
-    private static ArrayList<Sorpresa> MayorCero(ArrayList<Sorpresa> juego)
-    {
-        ArrayList<Sorpresa> mayorq0 = new ArrayList();
-                
-        for (Sorpresa t: juego) 
-        {
-          if(t.getValor()>0)
-          {
-               mayorq0.add(t);
-          }  
-        }
-        return mayorq0;
-    }
-    
-    private static ArrayList<Sorpresa> TipoCasilla(ArrayList<Sorpresa> juego)
-    {
-        ArrayList<Sorpresa> tipoCasilla = new ArrayList();
-               
-        for (Sorpresa t: juego) 
-        {
-          if(t.getTipo()==TipoSorpresa.IRACASILLA)
-          {
-              tipoCasilla.add(t);
-          }  
-        }
-        return tipoCasilla;
-    }
-    
-    private static ArrayList<Sorpresa> TipoSorpresa(ArrayList<Sorpresa> juego, TipoSorpresa sorp)
-    {
-        ArrayList<Sorpresa> tipoSorpresa = new ArrayList();
-               
-        for (Sorpresa t: juego) 
-        {
-          if(t.getTipo()==sorp)
-          {
-              tipoSorpresa.add(t);
-          }  
-        }
-        return tipoSorpresa;
-    }
-    
-    private static ArrayList<String> getNombreJugadores(){
-        ArrayList<String> lista = new ArrayList<>();
-        int num_jugadores;
-        
-        System.out.println("Introduce el numero de jugadores:");
-        num_jugadores = in.nextInt();
-        
-        for(int i=0; i<num_jugadores; i++){
-            System.out.println("Introduce el nombre del jugador:");
-            String s = in.next();
-            lista.add(s);
-        }
-        
-        return lista;
-    } 
-    
-    public static void main(String[] args) {
-        // Inicializaciones
-       ArrayList <String> nombres = new ArrayList<>();
-       nombres = getNombreJugadores();
-       juego.inicializarJuego(nombres);
-       Tablero tab = new Tablero();
+//package modeloqytetet;
+//import java.util.ArrayList;
+//import java.util.Scanner;
+//
+//public class PruebaQytetet {
+//    private static Qytetet juego = Qytetet.getInstance();
+//    private static final Scanner in = new Scanner (System.in);
+//    
+//    private static ArrayList<Sorpresa> MayorCero(ArrayList<Sorpresa> juego)
+//    {
+//        ArrayList<Sorpresa> mayorq0 = new ArrayList();
+//                
+//        for (Sorpresa t: juego) 
+//        {
+//          if(t.getValor()>0)
+//          {
+//               mayorq0.add(t);
+//          }  
+//        }
+//        return mayorq0;
+//    }
+//    
+//    private static ArrayList<Sorpresa> TipoCasilla(ArrayList<Sorpresa> juego)
+//    {
+//        ArrayList<Sorpresa> tipoCasilla = new ArrayList();
+//               
+//        for (Sorpresa t: juego) 
+//        {
+//          if(t.getTipo()==TipoSorpresa.IRACASILLA)
+//          {
+//              tipoCasilla.add(t);
+//          }  
+//        }
+//        return tipoCasilla;
+//    }
+//    
+//    private static ArrayList<Sorpresa> TipoSorpresa(ArrayList<Sorpresa> juego, TipoSorpresa sorp)
+//    {
+//        ArrayList<Sorpresa> tipoSorpresa = new ArrayList();
+//               
+//        for (Sorpresa t: juego) 
+//        {
+//          if(t.getTipo()==sorp)
+//          {
+//              tipoSorpresa.add(t);
+//          }  
+//        }
+//        return tipoSorpresa;
+//    }
+//    
+//    private static ArrayList<String> getNombreJugadores(){
+//        ArrayList<String> lista = new ArrayList<>();
+//        int num_jugadores;
+//        
+//        System.out.println("Introduce el numero de jugadores:");
+//        num_jugadores = in.nextInt();
+//        
+//        for(int i=0; i<num_jugadores; i++){
+//            System.out.println("Introduce el nombre del jugador:");
+//            String s = in.next();
+//            lista.add(s);
+//        }
+//        
+//        return lista;
+//    } 
+//    
+//    public static void main(String[] args) {
+//        // Inicializaciones
+//       ArrayList <String> nombres = new ArrayList<>();
+//       nombres = getNombreJugadores();
+//       juego.inicializarJuego(nombres);
+//       Tablero tab = new Tablero();
        
        // Imprime el mazo y los métodos de la clase Qytetet
        /*System.out.println("Imprimimos el mazo y los métodos de la clase Qytetet");
@@ -149,6 +149,6 @@ public class PruebaQytetet {
 //        juego.mover(2); // La primera casilla de tipo sorpresa
 //        juego.aplicarSorpresa();
 //        System.out.println(juego.getJugadorActual());
-    }
-    
-}
+//    }
+//    
+//}

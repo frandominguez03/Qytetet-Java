@@ -46,7 +46,7 @@ public class Jugador implements Comparable {
         boolean comprado = false;
         int costeCompra = casillaActual.getCoste();
         
-        if(costeCompra<saldo){
+        if(costeCompra < saldo){
             comprado = true;
             Calle cas = (Calle) casillaActual;
             TituloPropiedad titulo = cas.getTitulo();

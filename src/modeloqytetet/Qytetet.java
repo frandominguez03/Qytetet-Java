@@ -207,11 +207,15 @@ public class Qytetet {
         return cartaActual;
     }
     
+    public EstadoJuego getEstadoJuego(){
+        return estado;
+    }
+    
     Dado getDado(){
         return Dado.getInstance();
     }
     
-    Jugador getJugadorActual(){
+    public Jugador getJugadorActual(){
         return jugadorActual;
     }
     
@@ -219,8 +223,12 @@ public class Qytetet {
         return jugadores;
     }
     
-    public ArrayList getMazo(){
+    ArrayList getMazo(){
         return mazo;   
+    }
+    
+    public Tablero getTablero(){
+        return tablero;
     }
     
     public int getValorDado(){
