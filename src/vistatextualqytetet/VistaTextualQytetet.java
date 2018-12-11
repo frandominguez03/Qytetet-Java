@@ -32,8 +32,8 @@ public class VistaTextualQytetet {
         }
         
         else{
-            for(int i=0; i<casillasValidas.size(); i++){
-                System.out.println("Casillas válidas: ");
+            System.out.println("Casillas válidas: ");
+            for(int i=0; i<casillasValidas.size(); i++){               
                 System.out.println(casillasValidas.get(i));
                 auxiliar.add(Integer.toString(casillasValidas.get(i)));
             }
@@ -86,8 +86,9 @@ public class VistaTextualQytetet {
     boolean necesitaElegirCasilla;
     do {
         operacionElegida = ui.elegirOperacion();
-        controlador.getEstado();
+        System.out.println("Estado: " + controlador.getEstado());
         necesitaElegirCasilla = controlador.necesitaElegirCasilla(operacionElegida);
+        System.out.println("Necesita elegir casilla: " + necesitaElegirCasilla);
         if (necesitaElegirCasilla)
             casillaElegida = ui.elegirCasilla(operacionElegida);
         if (!necesitaElegirCasilla || casillaElegida >= 0)

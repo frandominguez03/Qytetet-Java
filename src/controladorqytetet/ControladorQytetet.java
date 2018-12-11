@@ -31,6 +31,7 @@ public class ControladorQytetet {
     
     public ArrayList<Integer> obtenerOperacionesJuegoValidas(){
         ArrayList<Integer> operacionesValidas = new ArrayList<>();
+        estado = modelo.getEstadoJuego();
         
         if(this.nombreJugadores.isEmpty()){
             operacionesValidas.add(OpcionMenu.INICIARJUEGO.ordinal());
@@ -38,8 +39,7 @@ public class ControladorQytetet {
             return operacionesValidas;
         }
         
-        estado = modelo.getEstadoJuego();
-        switch(modelo.getEstadoJuego()){            
+        switch(estado){            
             case JA_ENCARCELADO:
                 operacionesValidas.add(OpcionMenu.PASARTURNO.ordinal());
                 operacionesValidas.add(OpcionMenu.OBTENERRANKING.ordinal());
@@ -47,7 +47,7 @@ public class ControladorQytetet {
                 operacionesValidas.add(OpcionMenu.MOSTRARJUGADORES.ordinal());
                 operacionesValidas.add(OpcionMenu.MOSTRARTABLERO.ordinal());
                 operacionesValidas.add(OpcionMenu.TERMINARJUEGO.ordinal());
-            
+                break;
             case JA_ENCARCELADOCONOPCIONDELIBERTAD:
                 operacionesValidas.add(OpcionMenu.INTENTARSALIRCARCELPAGANDOLIBERTAD.ordinal());
                 operacionesValidas.add(OpcionMenu.INTENTARSALIRCARCELTIRANDODADO.ordinal());
@@ -56,7 +56,7 @@ public class ControladorQytetet {
                 operacionesValidas.add(OpcionMenu.MOSTRARJUGADORES.ordinal());
                 operacionesValidas.add(OpcionMenu.MOSTRARTABLERO.ordinal());
                 operacionesValidas.add(OpcionMenu.TERMINARJUEGO.ordinal());
-                
+                break;
             case JA_PREPARADO:
                 operacionesValidas.add(OpcionMenu.JUGAR.ordinal());
                 operacionesValidas.add(OpcionMenu.OBTENERRANKING.ordinal());
@@ -64,7 +64,7 @@ public class ControladorQytetet {
                 operacionesValidas.add(OpcionMenu.MOSTRARJUGADORES.ordinal());
                 operacionesValidas.add(OpcionMenu.MOSTRARTABLERO.ordinal());
                 operacionesValidas.add(OpcionMenu.TERMINARJUEGO.ordinal());
-                
+                break;
             case JA_PUEDEGESTIONAR:
                 operacionesValidas.add(OpcionMenu.PASARTURNO.ordinal());
                 operacionesValidas.add(OpcionMenu.VENDERPROPIEDAD.ordinal());
@@ -77,7 +77,7 @@ public class ControladorQytetet {
                 operacionesValidas.add(OpcionMenu.MOSTRARJUGADORES.ordinal());
                 operacionesValidas.add(OpcionMenu.MOSTRARTABLERO.ordinal());
                 operacionesValidas.add(OpcionMenu.TERMINARJUEGO.ordinal());
-                
+                break;
             case JA_CONSORPRESA:
                 operacionesValidas.add(OpcionMenu.APLICARSORPRESA.ordinal());
                 operacionesValidas.add(OpcionMenu.OBTENERRANKING.ordinal());
@@ -85,7 +85,7 @@ public class ControladorQytetet {
                 operacionesValidas.add(OpcionMenu.MOSTRARJUGADORES.ordinal());
                 operacionesValidas.add(OpcionMenu.MOSTRARTABLERO.ordinal());
                 operacionesValidas.add(OpcionMenu.TERMINARJUEGO.ordinal());
-                
+                break;
             case JA_PUEDECOMPRAROGESTIONAR:
                 operacionesValidas.add(OpcionMenu.PASARTURNO.ordinal());
                 operacionesValidas.add(OpcionMenu.VENDERPROPIEDAD.ordinal());
@@ -99,13 +99,14 @@ public class ControladorQytetet {
                 operacionesValidas.add(OpcionMenu.MOSTRARJUGADORES.ordinal());
                 operacionesValidas.add(OpcionMenu.MOSTRARTABLERO.ordinal());
                 operacionesValidas.add(OpcionMenu.TERMINARJUEGO.ordinal());
-                
+                break;
             case ALGUNJUGADORENBANCARROTA:
                 operacionesValidas.add(OpcionMenu.OBTENERRANKING.ordinal());
                 operacionesValidas.add(OpcionMenu.MOSTRARJUGADORACTUAL.ordinal());
                 operacionesValidas.add(OpcionMenu.MOSTRARJUGADORES.ordinal());
                 operacionesValidas.add(OpcionMenu.MOSTRARTABLERO.ordinal());
                 operacionesValidas.add(OpcionMenu.TERMINARJUEGO.ordinal());
+                break;
         }
         
         return operacionesValidas;       
@@ -129,7 +130,7 @@ public class ControladorQytetet {
         ArrayList<Integer> casillasValidas = new ArrayList<>();
         
         if(opcionMenu == OpcionMenu.HIPOTECARPROPIEDAD.ordinal()){
-            casillasValidas = modelo.obtenerPropiedadesJugadorSegunEstadoHipoteca(false);
+            casillasValidas = modelo.obtenerPropiedadesJugador();
         }
         
         else if(opcionMenu == OpcionMenu.EDIFICARCASA.ordinal()){
@@ -155,19 +156,19 @@ public class ControladorQytetet {
         String resultado = null;
         
         switch(opcionElegida){
-            case 1: // INICIARJUEGO
+            case 0: // INICIARJUEGO
                 modelo.inicializarJuego(nombreJugadores);
                 resultado = "Iniciando juego...";
                 break;
-            case 2: // JUGAR
+            case 1: // JUGAR
                 modelo.jugar();
                 resultado = "Valor del dado: " + modelo.getValorDado() + ", Casilla actual: " + modelo.obtenerCasillaJugadorActual();
                 break;
-            case 3: // APLICARSORPRESA                
+            case 2: // APLICARSORPRESA                
                 modelo.aplicarSorpresa();
                 resultado = "La sorpresa es: " + modelo.getCartaActual();
                 break;
-            case 4: // INTENTARSALIRCARCELPAGANDOLIBERTAD
+            case 3: // INTENTARSALIRCARCELPAGANDOLIBERTAD
                 metodo = MetodoSalirCarcel.PAGANDOLIBERTAD;
                 boolean salido_carta = modelo.intentarSalirCarcel(metodo);
                 
@@ -179,7 +180,7 @@ public class ControladorQytetet {
                     resultado = "¡Mala suerte! La próxima vez será";
                 }
                 break;
-            case 5: // INTENTARSALIRCARCELTIRANDODADO
+            case 4: // INTENTARSALIRCARCELTIRANDODADO
                 metodo = MetodoSalirCarcel.TIRANDODADO;
                 boolean salido_dado = modelo.intentarSalirCarcel(metodo);
                 
@@ -191,22 +192,22 @@ public class ControladorQytetet {
                     resultado = "¡Mala suerte! La próxima vez será";
                 }
                 break;
-            case 6: // COMPRARTITULOPROPIEDAD
+            case 5: // COMPRARTITULOPROPIEDAD
                 boolean comprar_titulo = modelo.comprarTituloPropiedad();
-                
+                System.out.println(comprar_titulo);
                 if(comprar_titulo){
-                    resultado = "Comprando titulo de propiedad de la casilla " + modelo.obtenerCasillaJugadorActual();
+                    resultado = "Comprando titulo de propiedad de la casilla actual";
                 }
                 
                 else{
                     resultado = "No se ha podido comprar el titulo de la propiedad";
                 }
                 break;
-            case 7: // HIPOTECARPROPIEDAD
+            case 6: // HIPOTECARPROPIEDAD
                 modelo.hipotecarPropiedad(casillaElegida);
                 resultado = "Hipotecando la propiedad de la casilla " + modelo.obtenerCasillaJugadorActual();
                 break;
-            case 8: // CANCELARHIPOTECA
+            case 7: // CANCELARHIPOTECA
                 boolean cancelar_hipoteca = modelo.cancelarHipoteca(casillaElegida);
                 
                 if(cancelar_hipoteca){
@@ -217,7 +218,7 @@ public class ControladorQytetet {
                     resultado = "No se ha podido cancelar la hipoteca...";
                 }
                 break;
-            case 9: // EDIFICARCASA
+            case 8: // EDIFICARCASA
                 boolean edifica_casa = modelo.edificarCasa(casillaElegida);
                 
                 if(edifica_casa){
@@ -228,7 +229,7 @@ public class ControladorQytetet {
                     resultado = "No se ha podido edificar la casa...";
                 }
                 break;
-            case 10: // EDIFICARHOTEL
+            case 9: // EDIFICARHOTEL
                 boolean edifica_hotel = modelo.edificarHotel(casillaElegida);
                 
                 if(edifica_hotel){
@@ -239,28 +240,29 @@ public class ControladorQytetet {
                     resultado = "No se ha podido edificar el hotel...";
                 }
                 break;
-            case 11: // VENDERPROPIEDAD
+            case 10: // VENDERPROPIEDAD
                 modelo.venderPropiedad(casillaElegida);
                 resultado = "Vendiendo la propiedad de la casilla " + modelo.obtenerCasillaJugadorActual();
                 break;
-            case 12: // PASARTURNO
+            case 11: // PASARTURNO
                 modelo.siguienteJugador();
                 resultado = "Pasando el turno...";
                 break;
-            case 13: // OBTENERRANKING
+            case 12: // OBTENERRANKING
                 System.out.println(modelo.getJugadores());
                 break;
-            case 14: // TERMINARJUEGO
+            case 13: // TERMINARJUEGO
+                System.out.println("Terminando juego...");
                 System.exit(0);
                 break;
-            case 15: // MOSTRARJUGADORACTUAL
-                modelo.getJugadorActual();
+            case 14: // MOSTRARJUGADORACTUAL
+                System.out.println(modelo.getJugadorActual());
                 break;
-            case 16: // MOSTRARJUGADORES
-                modelo.getJugadores();
+            case 15: // MOSTRARJUGADORES
+                System.out.println(modelo.getJugadores());
                 break;
-            case 17: // MOSTRARTABLERO
-                modelo.getTablero();
+            case 16: // MOSTRARTABLERO
+                System.out.println(modelo.getTablero());
                 break;
             default:
                 break;

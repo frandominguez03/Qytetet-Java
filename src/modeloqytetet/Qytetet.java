@@ -415,10 +415,10 @@ public class Qytetet {
             jugadores.get(i).setCasillaActual(tablero.obtenerCasillaNumero(0));
         }
         
-        Random  jug_aleatorio = new Random();
+        Random jug_aleatorio = new Random();
         int jugador = jug_aleatorio.nextInt(jugadores.size())+1;
         
-        jugadorActual = jugadores.get(jugador);
+        this.jugadorActual = jugadores.get(jugador);
         
         setEstadoJuego(EstadoJuego.JA_PREPARADO);
     }
