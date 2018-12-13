@@ -2,12 +2,11 @@ package modeloqytetet;
 
 public class Calle extends Casilla{
     private TituloPropiedad titulo;
-    private int coste;
     
     Calle(int numCasilla, TituloPropiedad titulo){
         super(TipoCasilla.CALLE, numCasilla, titulo);
-        this.coste = titulo.getPrecioCompra();
-        this.titulo = titulo;
+        setCoste(titulo.getPrecioCompra());
+        setTitulo(titulo);
     }
     
     public void asignarPropietario(Jugador jugador){
@@ -18,6 +17,7 @@ public class Calle extends Casilla{
         return TipoCasilla.CALLE;
     }
     
+    @Override
     protected TituloPropiedad getTitulo(){
         return this.titulo;
     }

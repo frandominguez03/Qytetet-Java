@@ -10,7 +10,7 @@ public class Especulador extends Jugador {
     
     @Override
     protected void pagarImpuesto(){
-        modificarSaldo(getCasillaActual().getCoste()/2);
+        modificarSaldo(-(getCasillaActual().getCoste()/2));
     }
     
     @Override

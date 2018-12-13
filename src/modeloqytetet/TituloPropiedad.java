@@ -149,6 +149,12 @@ public class TituloPropiedad {
 
     @Override
     public String toString() {
-        return "TituloPropiedad{" + "Nombre=" + Nombre + ", precioCompra=" + precioCompra + ", alquilerBase=" + alquilerBase + ", factorRevalorizacion=" + factorRevalorizacion + ", hipotecaBase=" + hipotecaBase + ", precioEdificar=" + precioEdificar + ", hipotecada=" + hipotecada + ", numHoteles=" + numHoteles + ", numCasas=" + numCasas + ", propietario=" + propietario + ", propiedades=" + propiedades + '}';
+        if(propietario == null){
+            return "TituloPropiedad{" + "Nombre=" + Nombre + ", precioCompra=" + precioCompra + ", alquilerBase=" + alquilerBase + ", factorRevalorizacion=" + factorRevalorizacion + ", hipotecaBase=" + hipotecaBase + ", precioEdificar=" + precioEdificar + ", hipotecada=" + hipotecada + ", numHoteles=" + numHoteles + ", numCasas=" + numCasas + ", propietario=" + null + '}';
+        }
+        
+        else{
+            return "TituloPropiedad{" + "Nombre=" + Nombre + ", precioCompra=" + precioCompra + ", alquilerBase=" + alquilerBase + ", factorRevalorizacion=" + factorRevalorizacion + ", hipotecaBase=" + hipotecaBase + ", precioEdificar=" + precioEdificar + ", hipotecada=" + hipotecada + ", numHoteles=" + numHoteles + ", numCasas=" + numCasas + ", propietario=" + propietario.getNombre() + '}';
+        }
     }
 }

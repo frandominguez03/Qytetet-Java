@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import controladorqytetet.ControladorQytetet;
 import controladorqytetet.OpcionMenu;
-import modeloqytetet.Casilla;
 
 public class VistaTextualQytetet {
     private static final Scanner in = new Scanner (System.in);
@@ -13,8 +12,10 @@ public class VistaTextualQytetet {
         ArrayList<String> lista = new ArrayList<>();
         int num_jugadores;
         
-        System.out.println("Introduce el numero de jugadores:");
-        num_jugadores = in.nextInt();
+        do{
+            System.out.println("Introduce el numero de jugadores:");
+            num_jugadores = in.nextInt();
+        }while(num_jugadores < 2);
         
         for(int i=0; i<num_jugadores; i++){
             System.out.println("Introduce el nombre del jugador:");
@@ -60,6 +61,7 @@ public class VistaTextualQytetet {
                 System.out.println("Casilla: " + valoresCorrectos.get(i));
             }
         }
+        
         introducido = in.next();      
         
         for(int i=0; i<valoresCorrectos.size() && !pertenece; i++){

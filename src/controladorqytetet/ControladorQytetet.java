@@ -131,25 +131,20 @@ public class ControladorQytetet {
     
     public ArrayList<Integer> obtenerCasillasValidas(int opcionMenu){
         ArrayList<Integer> casillasValidas = new ArrayList<>();
+        OpcionMenu opcion = OpcionMenu.values()[opcionMenu];
         
-        if(opcionMenu == OpcionMenu.HIPOTECARPROPIEDAD.ordinal()){
-            casillasValidas = modelo.obtenerPropiedadesJugadorSegunEstadoHipoteca(false);
-        }
-        
-        else if(opcionMenu == OpcionMenu.EDIFICARCASA.ordinal()){
-            casillasValidas = modelo.obtenerPropiedadesJugador();
-        }
-        
-        else if(opcionMenu == OpcionMenu.EDIFICARHOTEL.ordinal()){
-            casillasValidas = modelo.obtenerPropiedadesJugador();
-        }
-        
-        else if(opcionMenu == OpcionMenu.VENDERPROPIEDAD.ordinal()){
-            casillasValidas = modelo.obtenerPropiedadesJugador();
-        }
-        
-        else if(opcionMenu == OpcionMenu.CANCELARHIPOTECA.ordinal()){
-            casillasValidas = modelo.obtenerPropiedadesJugadorSegunEstadoHipoteca(true);
+        switch(opcion){
+            case EDIFICARCASA:
+            case EDIFICARHOTEL:
+            case VENDERPROPIEDAD:
+                casillasValidas = modelo.obtenerPropiedadesJugador();
+                break;               
+            case HIPOTECARPROPIEDAD:
+                casillasValidas = modelo.obtenerPropiedadesJugadorSegunEstadoHipoteca(false);
+                break;                
+            case CANCELARHIPOTECA:
+                casillasValidas = modelo.obtenerPropiedadesJugadorSegunEstadoHipoteca(true);
+                break;
         }
         
         return casillasValidas;        
@@ -157,21 +152,22 @@ public class ControladorQytetet {
     
     public String realizarOperacion(int opcionElegida, int casillaElegida){
         String resultado = "";
+        OpcionMenu opcion = OpcionMenu.values()[opcionElegida];
         
-        switch(opcionElegida){
-            case 0: // INICIARJUEGO
+        switch(opcion){
+            case INICIARJUEGO:
                 modelo.inicializarJuego(nombreJugadores);
                 resultado = "Iniciando juego...";
                 break;
-            case 1: // JUGAR
+            case JUGAR: // JUGAR
                 modelo.jugar();
                 resultado = "Valor del dado: " + modelo.getValorDado() + ", Casilla actual: " + modelo.obtenerCasillaJugadorActual();
                 break;
-            case 2: // APLICARSORPRESA                
+            case APLICARSORPRESA:               
                 modelo.aplicarSorpresa();
                 resultado = "La sorpresa es: " + modelo.getCartaActual();
                 break;
-            case 3: // INTENTARSALIRCARCELPAGANDOLIBERTAD
+            case INTENTARSALIRCARCELPAGANDOLIBERTAD:
                 metodo = MetodoSalirCarcel.PAGANDOLIBERTAD;
                 boolean salido_carta = modelo.intentarSalirCarcel(metodo);
                 
@@ -183,7 +179,7 @@ public class ControladorQytetet {
                     resultado = "¡Mala suerte! La próxima vez será";
                 }
                 break;
-            case 4: // INTENTARSALIRCARCELTIRANDODADO
+            case INTENTARSALIRCARCELTIRANDODADO:
                 metodo = MetodoSalirCarcel.TIRANDODADO;
                 boolean salido_dado = modelo.intentarSalirCarcel(metodo);
                 
@@ -195,9 +191,9 @@ public class ControladorQytetet {
                     resultado = "¡Mala suerte! La próxima vez será";
                 }
                 break;
-            case 5: // COMPRARTITULOPROPIEDAD
+            case COMPRARTITULOPROPIEDAD:
                 boolean comprar_titulo = modelo.comprarTituloPropiedad();
-                System.out.println(comprar_titulo);
+
                 if(comprar_titulo){
                     resultado = "Comprando titulo de propiedad de la casilla actual";
                 }
@@ -206,11 +202,11 @@ public class ControladorQytetet {
                     resultado = "No se ha podido comprar el titulo de la propiedad";
                 }
                 break;
-            case 6: // HIPOTECARPROPIEDAD
+            case HIPOTECARPROPIEDAD:
                 modelo.hipotecarPropiedad(casillaElegida);
                 resultado = "Hipotecando la propiedad de la casilla actual";
                 break;
-            case 7: // CANCELARHIPOTECA
+            case CANCELARHIPOTECA:
                 boolean cancelar_hipoteca = modelo.cancelarHipoteca(casillaElegida);
                 
                 if(cancelar_hipoteca){
@@ -221,7 +217,7 @@ public class ControladorQytetet {
                     resultado = "No se ha podido cancelar la hipoteca...";
                 }
                 break;
-            case 8: // EDIFICARCASA
+            case EDIFICARCASA:
                 boolean edifica_casa = modelo.edificarCasa(casillaElegida);
                 
                 if(edifica_casa){
@@ -232,7 +228,7 @@ public class ControladorQytetet {
                     resultado = "No se ha podido edificar la casa...";
                 }
                 break;
-            case 9: // EDIFICARHOTEL
+            case EDIFICARHOTEL:
                 boolean edifica_hotel = modelo.edificarHotel(casillaElegida);
                 
                 if(edifica_hotel){
@@ -243,32 +239,28 @@ public class ControladorQytetet {
                     resultado = "No se ha podido edificar el hotel...";
                 }
                 break;
-            case 10: // VENDERPROPIEDAD
+            case VENDERPROPIEDAD:
                 modelo.venderPropiedad(casillaElegida);
                 resultado = "Vendiendo la propiedad de la casilla actual";
                 break;
-            case 11: // PASARTURNO
+            case PASARTURNO:
                 modelo.siguienteJugador();
                 resultado = "Pasando el turno...";
                 break;
-            case 12: // OBTENERRANKING
-                modelo.obtenerRanking();
-                System.out.println(modelo.getJugadores().toString());
-                break;
-            case 13: // TERMINARJUEGO
+            case TERMINARJUEGO:
                 System.out.println("Terminando juego...");
                 modelo.obtenerRanking();
                 System.out.println(modelo.getJugadores());
                 System.exit(0);
                 break;
-            case 14: // MOSTRARJUGADORACTUAL
-                System.out.println(modelo.getJugadorActual());
+            case MOSTRARJUGADORACTUAL:
+                System.out.println(modelo.getJugadorActual().toString());
                 break;
-            case 15: // MOSTRARJUGADORES
+            case MOSTRARJUGADORES:
                 System.out.println(modelo.getJugadores());
                 break;
-            case 16: // MOSTRARTABLERO
-                System.out.println(modelo.getTablero().toString());
+            case MOSTRARTABLERO:
+                System.out.println(modelo.getTablero());
                 break;
             default:
                 break;
