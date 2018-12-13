@@ -16,12 +16,16 @@ public class Casilla {
         }
     }
 
-   int getNumeroCasilla() {
+    int getNumeroCasilla() {
         return this.numeroCasilla;
     }
 
     int getCoste() {
         return this.coste;
+    }
+    
+    protected TituloPropiedad getTitulo(){
+        return this.titulo;
     }
     
     private void setTipo(TipoCasilla tipo){

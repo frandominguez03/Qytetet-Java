@@ -122,7 +122,9 @@ public class Qytetet {
                 }
                 break;
             case CONVERTIRME:
-                jugadorActual = jugadorActual.convertirme(cartaActual.getValor());
+                Especulador especulador = jugadorActual.convertirme(cartaActual.getValor());               
+                jugadores.set(jugadores.indexOf(jugadorActual), especulador);
+                jugadorActual = especulador;
             default:
                 break;
             }
@@ -378,11 +380,18 @@ public class Qytetet {
     
     public ArrayList<Integer> obtenerPropiedadesJugador(){
         ArrayList<Integer> casillas = new ArrayList<>();
-        String nombre;
+        Casilla nombre;
+        Calle tipoCalle;
         
-        for(int i=0; i< jugadorActual.getPropiedades().size(); i++){
-            nombre = jugadorActual.getPropiedades().get(i).getNombre();
-            casillas.add(obtenerCasillasTablero().indexOf(nombre));
+        for(int i=0; i<obtenerCasillasTablero().size(); i++){
+            nombre = obtenerCasillasTablero().get(i);
+            
+            if(nombre.soyEdificable()){
+                if(nombre.getTitulo().getPropietario() == jugadorActual){
+                    tipoCalle = (Calle) nombre;
+                    casillas.add(obtenerCasillasTablero().indexOf(tipoCalle));
+                }
+            }
         }
         
         return casillas;
@@ -390,12 +399,17 @@ public class Qytetet {
     
     public ArrayList<Integer> obtenerPropiedadesJugadorSegunEstadoHipoteca(boolean estadoHipoteca){
         ArrayList<Integer> casillas = new ArrayList<>();
-        String nombre;
+        Casilla nombre;
+        Calle tipoCalle;
         
-        for (int i=0; i<jugadorActual.getPropiedades().size(); i++){
-            if(jugadorActual.getPropiedades().get(i).getHipotecada() == estadoHipoteca){
-                nombre = jugadorActual.getPropiedades().get(i).getNombre();
-                casillas.add(obtenerCasillasTablero().indexOf(nombre));
+        for(int i=0; i<obtenerCasillasTablero().size(); i++){
+            nombre = obtenerCasillasTablero().get(i);
+            
+            if(nombre.soyEdificable()){
+                if(nombre.getTitulo().getPropietario() == jugadorActual && nombre.getTitulo().getHipotecada() == estadoHipoteca){
+                    tipoCalle = (Calle) nombre;
+                    casillas.add(obtenerCasillasTablero().indexOf(tipoCalle));
+                }
             }
         }
         
@@ -416,7 +430,7 @@ public class Qytetet {
         }
         
         Random jug_aleatorio = new Random();
-        int jugador = jug_aleatorio.nextInt(jugadores.size())+1;
+        int jugador = jug_aleatorio.nextInt(jugadores.size());
         
         this.jugadorActual = jugadores.get(jugador);
         

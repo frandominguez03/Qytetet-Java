@@ -2,6 +2,8 @@ package vistatextualqytetet;
 import java.util.ArrayList;
 import java.util.Scanner;
 import controladorqytetet.ControladorQytetet;
+import controladorqytetet.OpcionMenu;
+import modeloqytetet.Casilla;
 
 public class VistaTextualQytetet {
     private static final Scanner in = new Scanner (System.in);
@@ -38,19 +40,26 @@ public class VistaTextualQytetet {
                 auxiliar.add(Integer.toString(casillasValidas.get(i)));
             }
             
-            return Integer.parseInt(leerValorCorrecto(auxiliar));
+            return Integer.parseInt(leerValorCorrecto(auxiliar, false));
         }
     }
     
-    public String leerValorCorrecto(ArrayList<String> valoresCorrectos){
+    public String leerValorCorrecto(ArrayList<String> valoresCorrectos, boolean opcion){
         String valorCorrecto = null, introducido;
         boolean pertenece = false;
         
         System.out.println("Introduce una de las siguientes opciones:");
-        for(int i=0; i<valoresCorrectos.size(); i++){
-            System.out.println(valoresCorrectos.get(i));
+        if(opcion){
+            for(int i=0; i<valoresCorrectos.size(); i++){
+                System.out.println(valoresCorrectos.get(i) + " - " + OpcionMenu.values()[Integer.parseInt(valoresCorrectos.get(i))]);
+            }
         }
         
+        else{
+            for(int i=0; i<valoresCorrectos.size(); i++){
+                System.out.println("Casilla: " + valoresCorrectos.get(i));
+            }
+        }
         introducido = in.next();      
         
         for(int i=0; i<valoresCorrectos.size() && !pertenece; i++){
@@ -75,7 +84,7 @@ public class VistaTextualQytetet {
             convertidos.add(Integer.toString(listaOpciones.get(i)));
         }
         
-        return Integer.parseInt(leerValorCorrecto(convertidos));       
+        return Integer.parseInt(leerValorCorrecto(convertidos, true));       
     }
     
     public static void main(String args[]) {
@@ -86,9 +95,7 @@ public class VistaTextualQytetet {
     boolean necesitaElegirCasilla;
     do {
         operacionElegida = ui.elegirOperacion();
-        System.out.println("Estado: " + controlador.getEstado());
         necesitaElegirCasilla = controlador.necesitaElegirCasilla(operacionElegida);
-        System.out.println("Necesita elegir casilla: " + necesitaElegirCasilla);
         if (necesitaElegirCasilla)
             casillaElegida = ui.elegirCasilla(operacionElegida);
         if (!necesitaElegirCasilla || casillaElegida >= 0)
