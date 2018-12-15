@@ -4,7 +4,8 @@ public class OtraCasilla extends Casilla{
     private TipoCasilla tipo;
     
     OtraCasilla(TipoCasilla tipo, int numCasilla){
-        super(tipo, numCasilla, null);
+        super(numCasilla);
+        this.tipo = tipo;;
     }
     
     protected TipoCasilla getTipo(){
@@ -12,11 +13,17 @@ public class OtraCasilla extends Casilla{
     }
     
     @Override
-    protected boolean soyEdificable(){
-        return this.tipo == TipoCasilla.CALLE;
-    }
-    
     protected TituloPropiedad getTitulo(){
         return null;
+    }
+    
+    @Override
+    protected boolean soyEdificable(){
+        return false;
+    }
+    
+    @Override
+    public String toString() {
+        return super.toString() + " OtraCasilla{" + "tipo=" + tipo + '}';
     }
 }

@@ -171,7 +171,7 @@ public class ControladorQytetet {
                 metodo = MetodoSalirCarcel.PAGANDOLIBERTAD;
                 boolean salido_carta = modelo.intentarSalirCarcel(metodo);
                 
-                if(salido_carta){
+                if(!salido_carta){
                     resultado = "¡Has conseguido salir de la cárcel!";
                 }
                 
@@ -183,7 +183,7 @@ public class ControladorQytetet {
                 metodo = MetodoSalirCarcel.TIRANDODADO;
                 boolean salido_dado = modelo.intentarSalirCarcel(metodo);
                 
-                if(salido_dado){
+                if(!salido_dado){
                     resultado = "¡Has conseguido salir de la cárcel!";
                 }
                 

@@ -4,7 +4,7 @@ public class Calle extends Casilla{
     private TituloPropiedad titulo;
     
     Calle(int numCasilla, TituloPropiedad titulo){
-        super(TipoCasilla.CALLE, numCasilla, titulo);
+        super(numCasilla);
         setCoste(titulo.getPrecioCompra());
         setTitulo(titulo);
     }
@@ -37,5 +37,10 @@ public class Calle extends Casilla{
     
     public boolean tengoPropietario(){
         return titulo.tienePropietario();
+    }
+    
+    @Override
+    public String toString(){
+        return super.toString() + " Calle{" + "titulo=" + titulo + '}';
     }
 }

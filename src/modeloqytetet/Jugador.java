@@ -251,13 +251,14 @@ public class Jugador implements Comparable {
     
     protected boolean puedoEdificarHotel(TituloPropiedad titulo){
         int numHoteles = titulo.getNumHoteles();
+        int numCasas = titulo.getNumCasas();
         boolean tengoSaldo = tengoSaldo(titulo.getPrecioEdificar());
         
-        return numHoteles < 4 && tengoSaldo;
+        return numHoteles < 4 && tengoSaldo && numCasas >= 4;
     }
     
     void setCartaLibertad(Sorpresa carta){
-        if(carta.getTipo() != TipoSorpresa.SALIRCARCEL) {
+        if(carta.getTipo() == TipoSorpresa.SALIRCARCEL) {
             this.cartaLibertad = carta;
         }
         

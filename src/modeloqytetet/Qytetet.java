@@ -11,7 +11,6 @@ public class Qytetet {
     private static Dado dado = Dado.getInstance();
     private Sorpresa cartaActual;
     private Jugador jugadorActual;
-    private MetodoSalirCarcel metodo;
     private EstadoJuego estado;
     
     public static int MAX_JUGADORES = 4;
@@ -87,7 +86,7 @@ public class Qytetet {
             
             if(null != cartaActual.getTipo())switch (cartaActual.getTipo()) {
             case PAGARCOBRAR:
-                jugadorActual.modificarSaldo(cartaActual.getValor());
+                jugadorActual.modificarSaldo(-(cartaActual.getValor()));
                 if(jugadorActual.getSaldo() < 0){
                     setEstadoJuego(EstadoJuego.ALGUNJUGADORENBANCARROTA);
                 }   break;
@@ -106,18 +105,25 @@ public class Qytetet {
                 int cantidad = cartaActual.getValor();
                 int numeroTotal = jugadorActual.cuantasCasasHotelesTengo();
                 jugadorActual.modificarSaldo(numeroTotal*cantidad);
+                
                 if(jugadorActual.getSaldo() < 0){
                     setEstadoJuego(EstadoJuego.ALGUNJUGADORENBANCARROTA);
                 }
                 break;
             case PORJUGADOR:
-                for(int i=0; i<MAX_JUGADORES-1; i++){
-                    siguienteJugador();
+                for(int i=0; i<jugadores.size(); i++){
+                    Jugador jugador=jugadores.get(i);
                     
-                    jugadorActual.modificarSaldo(cartaActual.getValor());
+                    if(jugadores.get(i) != jugadorActual){
+                        this.jugadorActual.modificarSaldo(this.cartaActual.getValor());
                     
-                    if(jugadorActual.getSaldo() < 0){
-                        setEstadoJuego(EstadoJuego.ALGUNJUGADORENBANCARROTA);
+                        if(jugador.getSaldo() < 0){
+                            setEstadoJuego(EstadoJuego.ALGUNJUGADORENBANCARROTA);
+                        }
+                    
+                        if(jugadorActual.getSaldo() < 0){
+                            setEstadoJuego(EstadoJuego.ALGUNJUGADORENBANCARROTA);
+                        }
                     }
                 }
                 break;
@@ -192,7 +198,7 @@ public class Qytetet {
     }
     
     private void encarcelarJugador(){
-        if(!jugadorActual.deboIrACarcel()){
+        if(jugadorActual.deboIrACarcel()){
             Casilla casillaCarcel = tablero.getCarcel();
             jugadorActual.irACarcel(casillaCarcel);            
             setEstadoJuego(EstadoJuego.JA_ENCARCELADO);
@@ -246,41 +252,50 @@ public class Qytetet {
     
     private static void inicializarCartasSorpresa(){
         inicializarTablero();
-            mazo.add(new Sorpresa("Me convierto en especulador, porque puedo", 3000, TipoSorpresa.CONVERTIRME));
-            
-            mazo.add(new Sorpresa("Una nueva carta que te convierte en especulador", 5000, TipoSorpresa.CONVERTIRME));
-            
-            mazo.add(new Sorpresa ("Te hemos pillado con las manos en los sobres, lo sentimos, ¡debes ir a la carcel!", 
-                    tablero.getCarcel().getNumeroCasilla(), TipoSorpresa.IRACASILLA));
-            
-            mazo.add(new Sorpresa ("Pides un Uber que te lleva la casilla mitad del tablero",
-                    10, TipoSorpresa.IRACASILLA));
-            
-            mazo.add(new Sorpresa ("Alquilas una bici amarilla que te lleva a la casilla 5, luego la tiras al río",
-                    5, TipoSorpresa.IRACASILLA));
-            
-            mazo.add(new Sorpresa ("Pides a la gente que te de dinero para comprar un regalo en común, "
-                    + "pero acabas quedándotelo tu para ir a Pedro",
-                    200, TipoSorpresa.PORJUGADOR));
-            
-            mazo.add(new Sorpresa ("Dijiste que invitarías a chupitos pero no lo hiciste, pagas 50 euros a cada uno",
-                    50, TipoSorpresa.PORJUGADOR));
-            
-            mazo.add(new Sorpresa ("Recibes un sobre con la letra B escrita, recibes 500 euros",
-                    500, TipoSorpresa.PAGARCOBRAR));
-            
-            mazo.add(new Sorpresa ("Te vas a la ruleta, crees ganar pero el ruso de al lado te hace la jugada, pierdes 200 euros",
-                    200, TipoSorpresa.PAGARCOBRAR));
-           
-            mazo.add(new Sorpresa ("Gracias a la burbuja del alquiler, la gente compra más casas "
-                    + "y hay más turistas en hoteles, ganas 300 euros.",
-                    300, TipoSorpresa.PORCASAHOTEL));
-           
-            mazo.add(new Sorpresa ("Mala suerte, Hacienda te ha pillado saltándote la declaración de bienes, debes 500 euros",
-                    500, TipoSorpresa.PORCASAHOTEL));
-           
-            mazo.add(new Sorpresa ("Un afiliado de tu partido intercede. Sales de la cárcel",
-                    0, TipoSorpresa.SALIRCARCEL));
+        ArrayList<Sorpresa> auxiliar = new ArrayList<>();
+
+        auxiliar.add(new Sorpresa ("Te hemos pillado con las manos en los sobres, lo sentimos, ¡debes ir a la carcel!", 
+                tablero.getCarcel().getNumeroCasilla(), TipoSorpresa.IRACASILLA));
+
+        auxiliar.add(new Sorpresa("Me convierto en especulador, porque puedo", 3000, TipoSorpresa.CONVERTIRME));
+
+        auxiliar.add(new Sorpresa("Una nueva carta que te convierte en especulador", 5000, TipoSorpresa.CONVERTIRME));
+
+        auxiliar.add(new Sorpresa ("Pides un Uber que te lleva la casilla mitad del tablero",
+                10, TipoSorpresa.IRACASILLA));
+
+        auxiliar.add(new Sorpresa ("Alquilas una bici amarilla que te lleva a la casilla 5, luego la tiras al río",
+                5, TipoSorpresa.IRACASILLA));
+
+        auxiliar.add(new Sorpresa ("Pides a la gente que te de dinero para comprar un regalo en común, "
+                + "pero acabas quedándotelo tu para ir a Pedro",
+                200, TipoSorpresa.PORJUGADOR));
+
+        auxiliar.add(new Sorpresa ("Dijiste que invitarías a chupitos pero no lo hiciste, pagas 50 euros a cada uno",
+                50, TipoSorpresa.PORJUGADOR));
+
+        auxiliar.add(new Sorpresa ("Recibes un sobre con la letra B escrita, recibes 500 euros",
+                500, TipoSorpresa.PAGARCOBRAR));
+
+        auxiliar.add(new Sorpresa ("Te vas a la ruleta, crees ganar pero el ruso de al lado te hace la jugada, pierdes 200 euros",
+                200, TipoSorpresa.PAGARCOBRAR));
+
+        auxiliar.add(new Sorpresa ("Gracias a la burbuja del alquiler, la gente compra más casas "
+                + "y hay más turistas en hoteles, ganas 300 euros.",
+                300, TipoSorpresa.PORCASAHOTEL));
+
+        auxiliar.add(new Sorpresa ("Mala suerte, Hacienda te ha pillado saltándote la declaración de bienes, debes 500 euros",
+                500, TipoSorpresa.PORCASAHOTEL));
+
+        auxiliar.add(new Sorpresa ("Un afiliado de tu partido intercede. Sales de la cárcel",
+                0, TipoSorpresa.SALIRCARCEL));
+
+        while(!auxiliar.isEmpty()){
+            Random aleat = new Random();
+            int obtenido = aleat.nextInt(auxiliar.size());
+            mazo.add(auxiliar.get(obtenido));
+            auxiliar.remove(obtenido);
+        }
     }
     
     public void inicializarJuego(ArrayList<String> nombres){
@@ -451,8 +466,6 @@ public class Qytetet {
         
         if(jugadorActual.getEncarcelado()){
             setEstadoJuego(EstadoJuego.JA_ENCARCELADOCONOPCIONDELIBERTAD);
-            intentarSalirCarcel(MetodoSalirCarcel.TIRANDODADO);
-            intentarSalirCarcel(MetodoSalirCarcel.PAGANDOLIBERTAD);
         }
         
         else{

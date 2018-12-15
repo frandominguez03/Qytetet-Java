@@ -1,5 +1,4 @@
 package modeloqytetet;
-import java.util.ArrayList;
 
 public class TituloPropiedad {
     private String Nombre;
@@ -13,10 +12,9 @@ public class TituloPropiedad {
     private int numCasas;
     
     private Jugador propietario;
-    private ArrayList<TituloPropiedad> propiedades;
     
     
-    TituloPropiedad(String nombre,int precioC,int alquilerB,float factorR,int hipotecaB,int precioE)
+    TituloPropiedad(String nombre, int precioC, int alquilerB, float factorR, int hipotecaB, int precioE)
     {
         Nombre=nombre;
         precioCompra=precioC;
@@ -74,7 +72,7 @@ public class TituloPropiedad {
     
     void edificarHotel(){
         this.numHoteles++;
-        this.numCasas = 0;
+        this.numCasas -= 4;
     }
 
     void setHipotecada(boolean hipotecada) {
@@ -149,8 +147,8 @@ public class TituloPropiedad {
 
     @Override
     public String toString() {
-        if(propietario == null){
-            return "TituloPropiedad{" + "Nombre=" + Nombre + ", precioCompra=" + precioCompra + ", alquilerBase=" + alquilerBase + ", factorRevalorizacion=" + factorRevalorizacion + ", hipotecaBase=" + hipotecaBase + ", precioEdificar=" + precioEdificar + ", hipotecada=" + hipotecada + ", numHoteles=" + numHoteles + ", numCasas=" + numCasas + ", propietario=" + null + '}';
+        if(!tienePropietario()){
+            return "TituloPropiedad{" + "Nombre=" + Nombre + ", precioCompra=" + precioCompra + ", alquilerBase=" + alquilerBase + ", factorRevalorizacion=" + factorRevalorizacion + ", hipotecaBase=" + hipotecaBase + ", precioEdificar=" + precioEdificar + ", hipotecada=" + hipotecada + ", numHoteles=" + numHoteles + ", numCasas=" + numCasas + '}';
         }
         
         else{
