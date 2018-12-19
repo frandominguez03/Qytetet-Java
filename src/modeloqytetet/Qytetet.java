@@ -86,7 +86,7 @@ public class Qytetet {
             
             if(null != cartaActual.getTipo())switch (cartaActual.getTipo()) {
             case PAGARCOBRAR:
-                jugadorActual.modificarSaldo(-(cartaActual.getValor()));
+                jugadorActual.modificarSaldo(cartaActual.getValor());
                 if(jugadorActual.getSaldo() < 0){
                     setEstadoJuego(EstadoJuego.ALGUNJUGADORENBANCARROTA);
                 }   break;
@@ -148,11 +148,14 @@ public class Qytetet {
     }
     
     public boolean comprarTituloPropiedad(){
+        boolean comprado = false;
+        
         if(jugadorActual.comprarTituloPropiedad()){
             setEstadoJuego(EstadoJuego.JA_PUEDEGESTIONAR);
+            comprado = true;
         }
         
-        return jugadorActual.comprarTituloPropiedad();
+        return comprado;
     }
     
     public boolean edificarCasa(int numeroCasilla){
