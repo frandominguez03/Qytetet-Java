@@ -111,19 +111,16 @@ public class Qytetet {
                 }
                 break;
             case PORJUGADOR:
-                for(int i=0; i<jugadores.size(); i++){
-                    Jugador jugador=jugadores.get(i);
+                for(Jugador j:jugadores){
+                    this.jugadorActual.modificarSaldo(this.cartaActual.getValor());
+                    j.modificarSaldo(-(this.cartaActual.getValor()));
                     
-                    if(jugadores.get(i) != jugadorActual){
-                        this.jugadorActual.modificarSaldo(this.cartaActual.getValor());
+                    if(j.getSaldo() < 0){
+                        setEstadoJuego(EstadoJuego.ALGUNJUGADORENBANCARROTA);
+                    }
                     
-                        if(jugador.getSaldo() < 0){
-                            setEstadoJuego(EstadoJuego.ALGUNJUGADORENBANCARROTA);
-                        }
-                    
-                        if(jugadorActual.getSaldo() < 0){
-                            setEstadoJuego(EstadoJuego.ALGUNJUGADORENBANCARROTA);
-                        }
+                    if(jugadorActual.getSaldo() < 0){
+                        setEstadoJuego(EstadoJuego.ALGUNJUGADORENBANCARROTA);
                     }
                 }
                 break;

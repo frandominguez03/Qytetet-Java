@@ -28,8 +28,9 @@ public class Jugador implements Comparable {
         boolean puedeCancelar = false;
         int costeCancelar = titulo.calcularCosteCancelar();
         
-        if(saldo > costeCancelar){
-            titulo.cancelarHipoteca(); 
+        if(tengoSaldo(costeCancelar)){
+            titulo.cancelarHipoteca();
+            modificarSaldo(-costeCancelar);
             puedeCancelar = true;
         }
         
