@@ -272,7 +272,7 @@ public class Qytetet {
                 200, TipoSorpresa.PORJUGADOR));
 
         auxiliar.add(new Sorpresa ("Dijiste que invitarías a chupitos pero no lo hiciste, pagas 50 euros a cada uno",
-                50, TipoSorpresa.PORJUGADOR));
+                -50, TipoSorpresa.PORJUGADOR));
 
         auxiliar.add(new Sorpresa ("Recibes un sobre con la letra B escrita, recibes 500 euros",
                 500, TipoSorpresa.PAGARCOBRAR));
